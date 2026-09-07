@@ -7,6 +7,17 @@ Il est indépendant du dépôt **vetement-back** (API, règles métier, données
 ont chacun leur propre historique Git et leur propre dépôt GitHub. Ne jamais supposer un accès
 direct au code du back-end depuis ce dépôt.
 
+## Mémoire de référence du projet
+
+Le contexte complet du projet (les deux dépôts) est documenté dans un fichier unique, hébergé
+dans le dépôt back-end :
+- Emplacement relatif dans l'espace de travail : `../vetement-back/docs/CONTEXTE_PROJET.md`
+- Lien GitHub réel : https://github.com/aitslimanemohamed-web/vetement-back/blob/main/docs/CONTEXTE_PROJET.md
+
+**Lire ce fichier avant toute intervention.** À la fin du travail, si l'intervention modifie
+des informations qu'il contient (organisation, décisions, état du projet...), **le mettre à
+jour dans le dépôt vetement-back** — ne pas en créer de copie dans ce dépôt.
+
 ## Avant de travailler
 
 Toujours lire le ticket concerné avant de commencer un travail dans ce dépôt. Ne pas déduire le
