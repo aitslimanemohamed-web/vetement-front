@@ -20,12 +20,12 @@ site web et aux applications mobiles.
 ## Dépôt lié
 
 Le back-end (API, règles métier, accès aux données) vit dans un dépôt séparé et indépendant :
-**vetement-back** (lien à compléter une fois le dépôt back-end créé).
+[**vetement-back**](https://github.com/aitslimanemohamed-web/vetement-back).
 
 ## Récupérer ce dépôt
 
 ```
-git clone <url-du-depot-vetement-front>
+git clone https://github.com/aitslimanemohamed-web/vetement-front.git
 ```
 
 ## État actuel
