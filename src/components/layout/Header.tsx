@@ -23,7 +23,9 @@ export async function Header() {
 
         <div className={styles.authButtons}>
           <DisabledActionButton label={t('login')} comingSoonLabel={t('comingSoon')} variant="secondary" />
-          <DisabledActionButton label={t('signup')} comingSoonLabel={t('comingSoon')} variant="primary" />
+          <Link href="/inscription" className={styles.signupLink}>
+            {t('signup')}
+          </Link>
         </div>
       </nav>
     </header>

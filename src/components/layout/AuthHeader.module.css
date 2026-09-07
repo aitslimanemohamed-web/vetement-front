@@ -7,7 +7,7 @@
   background: var(--color-bg-elevated);
 }
 
-.topRow {
+.row {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -23,42 +23,15 @@
   letter-spacing: -0.01em;
 }
 
-.actionsRow {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 0.75rem 1.5rem;
-}
-
-.howItWorks {
+.backLink {
+  align-self: flex-start;
   font-size: 0.9rem;
   font-weight: 600;
   color: var(--color-green-strong);
 }
 
-.howItWorks:hover {
+.backLink:hover {
   text-decoration: underline;
-}
-
-.authButtons {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.75rem;
-  flex-wrap: wrap;
-}
-
-.signupLink {
-  padding: 0.55rem 1.25rem;
-  border-radius: var(--radius-md);
-  background: var(--color-green);
-  color: var(--color-bg-elevated);
-  font-weight: 700;
-  font-size: 0.95rem;
-}
-
-.signupLink:hover {
-  background: var(--color-green-strong);
 }
 
 @media (min-width: 700px) {
@@ -69,12 +42,7 @@
     padding: 1rem 2rem;
   }
 
-  .topRow {
+  .row {
     flex: 0 0 auto;
-  }
-
-  .actionsRow {
-    flex: 1 1 auto;
-    justify-content: flex-end;
   }
 }

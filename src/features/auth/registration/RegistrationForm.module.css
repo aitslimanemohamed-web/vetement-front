@@ -1,0 +1,75 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.label {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--color-ink);
+}
+
+.input {
+  padding: 0.6rem 0.8rem;
+  border-radius: var(--radius-md);
+  border: 1.5px solid var(--color-border);
+  font: inherit;
+  color: var(--color-ink);
+  background: var(--color-bg-elevated);
+}
+
+.input[aria-invalid='true'] {
+  border-color: var(--color-red);
+}
+
+.help {
+  font-size: 0.8rem;
+  color: var(--color-ink-soft);
+}
+
+.error {
+  font-size: 0.82rem;
+  color: var(--color-red);
+  font-weight: 600;
+}
+
+.submit {
+  align-self: flex-start;
+  padding: 0.7rem 1.5rem;
+  border-radius: var(--radius-md);
+  border: none;
+  background: var(--color-green);
+  color: var(--color-bg-elevated);
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.submit:hover {
+  background: var(--color-green-strong);
+}
+
+.status {
+  min-height: 1.4em;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-green-strong);
+}
+
+.loginPrompt {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  font-size: 0.85rem;
+  color: var(--color-ink-soft);
+  margin-top: 0.5rem;
+}

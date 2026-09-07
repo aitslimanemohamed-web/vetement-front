@@ -46,5 +46,40 @@
     "tagline": "Vetement — un futur espace pour acheter et vendre des vêtements d'occasion en Algérie.",
     "backToTop": "Retour en haut",
     "testVersion": "Version de test"
+  },
+  "registration": {
+    "title": "Créer un compte",
+    "testNotice": "Version de test : aucun compte ne sera créé.",
+    "backToHome": "Retour à l'accueil",
+    "username": {
+      "label": "Nom d'utilisateur",
+      "help": "Entre 3 et 30 caractères : lettres (y compris accentuées ou arabes), chiffres, tirets et tirets bas, sans espace."
+    },
+    "password": {
+      "label": "Mot de passe",
+      "help": "Utilisez entre 15 et 128 caractères. Une phrase de passe est possible.",
+      "show": "Afficher le mot de passe",
+      "hide": "Masquer le mot de passe"
+    },
+    "confirmPassword": {
+      "label": "Confirmer le mot de passe",
+      "show": "Afficher la confirmation du mot de passe",
+      "hide": "Masquer la confirmation du mot de passe"
+    },
+    "submit": "S'inscrire",
+    "successMessage": "Le formulaire est valide. La création de compte sera disponible prochainement. Aucun compte n'a été créé.",
+    "loginPrompt": "Déjà un compte ?",
+    "loginAction": "Se connecter",
+    "comingSoon": "Bientôt disponible",
+    "errors": {
+      "usernameRequired": "Saisissez un nom d'utilisateur.",
+      "usernameLength": "Le nom d'utilisateur doit contenir entre 3 et 30 caractères.",
+      "usernameFormat": "Utilisez des lettres, des chiffres, des tirets ou des tirets bas, sans espaces.",
+      "passwordRequired": "Saisissez un mot de passe.",
+      "passwordTooShort": "Utilisez au moins 15 caractères.",
+      "passwordTooLong": "Utilisez au maximum 128 caractères.",
+      "confirmRequired": "Confirmez votre mot de passe.",
+      "confirmMismatch": "Les mots de passe ne correspondent pas."
+    }
   }
 }

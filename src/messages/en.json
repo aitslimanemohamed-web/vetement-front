@@ -46,5 +46,40 @@
     "tagline": "Vetement — an upcoming space to buy and sell second-hand clothes in Algeria.",
     "backToTop": "Back to top",
     "testVersion": "Test version"
+  },
+  "registration": {
+    "title": "Create an account",
+    "testNotice": "Test version: no account will be created.",
+    "backToHome": "Back to home",
+    "username": {
+      "label": "Username",
+      "help": "Between 3 and 30 characters: letters (including accented or Arabic), digits, hyphens and underscores, no spaces."
+    },
+    "password": {
+      "label": "Password",
+      "help": "Use between 15 and 128 characters. A passphrase works too.",
+      "show": "Show password",
+      "hide": "Hide password"
+    },
+    "confirmPassword": {
+      "label": "Confirm password",
+      "show": "Show password confirmation",
+      "hide": "Hide password confirmation"
+    },
+    "submit": "Sign up",
+    "successMessage": "The form is valid. Account creation will be available soon. No account was created.",
+    "loginPrompt": "Already have an account?",
+    "loginAction": "Log in",
+    "comingSoon": "Coming soon",
+    "errors": {
+      "usernameRequired": "Enter a username.",
+      "usernameLength": "Username must be between 3 and 30 characters.",
+      "usernameFormat": "Use letters, digits, hyphens or underscores, with no spaces.",
+      "passwordRequired": "Enter a password.",
+      "passwordTooShort": "Use at least 15 characters.",
+      "passwordTooLong": "Use at most 128 characters.",
+      "confirmRequired": "Confirm your password.",
+      "confirmMismatch": "Passwords don't match."
+    }
   }
 }
