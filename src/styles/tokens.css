@@ -1,0 +1,44 @@
+/* Variables visuelles du projet (US-004).
+   Palette : vert profond (identité principale), blanc cassé et sable (fonds),
+   rouge utilisé avec parcimonie (rappel du drapeau algérien, jamais dominant). */
+:root {
+  --color-bg: #fbf8f1;
+  --color-bg-elevated: #ffffff;
+  --color-bg-muted: #f3ecdd;
+  --color-sand: #e7cda0;
+  --color-sand-strong: #c99a5b;
+  --color-green: #14523d;
+  --color-green-strong: #0d3a2b;
+  --color-green-tint: #e3eee7;
+  --color-red: #c1272d;
+  --color-red-tint: #f8e2e2;
+  --color-ink: #1c2420;
+  --color-ink-soft: #55605a;
+  --color-border: #e2d8c3;
+  --color-focus: #0d3a2b;
+
+  --font-body: var(--font-cairo), 'Segoe UI', Tahoma, Geneva, Arial, sans-serif;
+
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --content-width: 1120px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg: #0e1913;
+    --color-bg-elevated: #142219;
+    --color-bg-muted: #17261c;
+    --color-sand: #d8b57f;
+    --color-sand-strong: #c99a5b;
+    --color-green: #4eae86;
+    --color-green-strong: #6fc79e;
+    --color-green-tint: #1b3327;
+    --color-red: #e96b70;
+    --color-red-tint: #3a1a1b;
+    --color-ink: #f2efe4;
+    --color-ink-soft: #c3cbc4;
+    --color-border: #2a3b30;
+    --color-focus: #6fc79e;
+  }
+}

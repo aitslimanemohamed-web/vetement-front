@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" role="img" aria-hidden="true">
+  <!-- Illustration originale (pas de photographie ni d'asset externe) :
+       un pantalon et un t-shirt stylisés, un bouton et une couture pointillée
+       en rappel discret du rouge algérien. -->
+  <circle cx="200" cy="200" r="170" fill="#e7cda0" opacity="0.45" />
+
+  <path
+    d="M140 150 L260 150 L275 340 L225 340 L210 220 L190 220 L175 340 L125 340 Z"
+    fill="#c99a5b"
+  />
+
+  <path
+    d="M150 90 L175 60 L225 60 L250 90 L295 115 L270 160 L250 145 L250 300 L150 300 L150 145 L130 160 L105 115 Z"
+    fill="#14523d"
+  />
+
+  <path
+    d="M175 60 L200 85 L225 60"
+    fill="none"
+    stroke="#0d3a2b"
+    stroke-width="4"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+
+  <circle cx="200" cy="130" r="7" fill="#c1272d" />
+
+  <circle
+    cx="200"
+    cy="200"
+    r="150"
+    fill="none"
+    stroke="#0d3a2b"
+    stroke-width="2"
+    stroke-dasharray="6 8"
+    opacity="0.25"
+  />
+</svg>

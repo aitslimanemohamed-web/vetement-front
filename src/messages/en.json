@@ -1,0 +1,50 @@
+{
+  "meta": {
+    "title": "Vetement — Second-hand fashion in Algeria",
+    "description": "Vetement is an upcoming space to buy and sell second-hand clothes across Algeria. Test environment, features coming soon."
+  },
+  "header": {
+    "primaryNav": "Main navigation",
+    "logoAlt": "Vetement, back to home",
+    "howItWorks": "How it works",
+    "login": "Log in",
+    "signup": "Sign up",
+    "comingSoon": "Coming soon"
+  },
+  "languageSwitcher": {
+    "label": "Choose language"
+  },
+  "hero": {
+    "eyebrow": "Second-hand fashion in Algeria",
+    "title": "A new life for your clothes.",
+    "description": "Discover a space to buy and sell second-hand clothes across Algeria.",
+    "cta": "How it works"
+  },
+  "howItWorks": {
+    "title": "How it works",
+    "note": "These features will become available progressively.",
+    "steps": {
+      "discover": {
+        "title": "Discover clothes",
+        "description": "Browse second-hand clothing listings."
+      },
+      "chat": {
+        "title": "Chat directly",
+        "description": "Message the seller to ask questions and agree on details."
+      },
+      "handover": {
+        "title": "Arrange the handover",
+        "description": "Agree together on an in-person handover or a shipment."
+      }
+    }
+  },
+  "listings": {
+    "title": "Clothes to discover",
+    "message": "Listings are coming soon."
+  },
+  "footer": {
+    "tagline": "Vetement — an upcoming space to buy and sell second-hand clothes in Algeria.",
+    "backToTop": "Back to top",
+    "testVersion": "Test version"
+  }
+}

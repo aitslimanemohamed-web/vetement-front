@@ -1,7 +1,8 @@
 name: CI
 
-# Vérifications automatiques (TECH-003). Le déploiement sera ajouté une fois
-# l'hébergement choisi et validé — voir docs/CONTEXTE_PROJET.md (dépôt vetement-back).
+# Vérifications automatiques avant déploiement. Le déploiement lui-même est géré
+# nativement par Vercel (intégration Git sur push vers main), pas par ce workflow
+# — voir docs/CONTEXTE_PROJET.md (dépôt vetement-back) pour l'adresse déployée.
 on:
   push:
     branches: [main]
@@ -27,6 +28,9 @@ jobs:
 
       - name: Vérifier le code (lint)
         run: npm run lint
+
+      - name: Exécuter les tests
+        run: npm test
 
       - name: Construire l'application
         run: npm run build

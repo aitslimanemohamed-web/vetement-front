@@ -1,0 +1,50 @@
+{
+  "meta": {
+    "title": "Vetement — La seconde main en Algérie",
+    "description": "Vetement est un futur espace pour acheter et vendre des vêtements d'occasion partout en Algérie. Environnement de test, fonctionnalités à venir."
+  },
+  "header": {
+    "primaryNav": "Navigation principale",
+    "logoAlt": "Vetement, retour à l'accueil",
+    "howItWorks": "Comment ça marche ?",
+    "login": "Connexion",
+    "signup": "Inscription",
+    "comingSoon": "Bientôt disponible"
+  },
+  "languageSwitcher": {
+    "label": "Choisir la langue"
+  },
+  "hero": {
+    "eyebrow": "La seconde main en Algérie",
+    "title": "Une nouvelle vie pour vos vêtements.",
+    "description": "Découvrez un espace pour acheter et vendre des vêtements d'occasion partout en Algérie.",
+    "cta": "Comment ça marche ?"
+  },
+  "howItWorks": {
+    "title": "Comment ça marche ?",
+    "note": "Ces fonctionnalités seront disponibles progressivement.",
+    "steps": {
+      "discover": {
+        "title": "Découvrez des vêtements",
+        "description": "Parcourez les annonces de vêtements d'occasion."
+      },
+      "chat": {
+        "title": "Échangez directement",
+        "description": "Discutez avec le vendeur pour poser vos questions et vous mettre d'accord."
+      },
+      "handover": {
+        "title": "Organisez la remise",
+        "description": "Convenez ensemble d'une remise en main propre ou d'une expédition."
+      }
+    }
+  },
+  "listings": {
+    "title": "Les vêtements à découvrir",
+    "message": "Les annonces arrivent bientôt."
+  },
+  "footer": {
+    "tagline": "Vetement — un futur espace pour acheter et vendre des vêtements d'occasion en Algérie.",
+    "backToTop": "Retour en haut",
+    "testVersion": "Version de test"
+  }
+}

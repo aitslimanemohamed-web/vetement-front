@@ -1,0 +1,89 @@
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  max-width: var(--content-width);
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 3rem;
+  text-align: center;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.1rem;
+  max-width: 46ch;
+}
+
+.eyebrow {
+  display: inline-block;
+  padding: 0.3rem 0.85rem;
+  border-radius: 999px;
+  background: var(--color-sand);
+  color: var(--color-green-strong);
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  line-height: 1.15;
+  text-wrap: balance;
+  color: var(--color-ink);
+}
+
+.description {
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: var(--color-ink-soft);
+}
+
+.cta {
+  display: inline-block;
+  margin-top: 0.4rem;
+  padding: 0.75rem 1.6rem;
+  border-radius: var(--radius-md);
+  background: var(--color-green);
+  color: var(--color-bg-elevated);
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.cta:hover {
+  background: var(--color-green-strong);
+}
+
+.visual {
+  width: 100%;
+  max-width: 320px;
+}
+
+.image {
+  width: 100%;
+  height: auto;
+}
+
+@media (min-width: 860px) {
+  .hero {
+    flex-direction: row;
+    align-items: center;
+    text-align: start;
+    padding: 4rem 2rem;
+    gap: 3rem;
+  }
+
+  .text {
+    align-items: flex-start;
+    text-align: start;
+  }
+
+  .visual {
+    max-width: 380px;
+    flex: 0 0 auto;
+  }
+}

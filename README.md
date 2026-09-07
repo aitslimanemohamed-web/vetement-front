@@ -43,6 +43,12 @@ git clone https://github.com/aitslimanemohamed-web/vetement-front.git
 
 - [Next.js](https://nextjs.org/) 16 avec TypeScript (site web uniquement pour le MVP —
   applications iOS/Android reportées).
+- [next-intl](https://next-intl.dev/) pour le routage et les traductions multilingues
+  (`/fr`, `/en`, `/ar`).
+- [Vitest](https://vitest.dev/) + [Testing Library](https://testing-library.com/) pour les
+  tests ciblés (sélecteur de langue, actions désactivées).
+- Hébergé sur [Vercel](https://vercel.com/) — voir `docs/CONTEXTE_PROJET.md` (dépôt
+  vetement-back) pour l'adresse déployée et son état.
 
 ## Développement local
 
@@ -52,17 +58,28 @@ cp .env.example .env.local   # puis ajuster NEXT_PUBLIC_API_URL si besoin
 npm run dev                  # démarre le serveur de développement (http://localhost:3000)
 npm run type-check           # vérifie les types TypeScript
 npm run lint                 # vérifie le code
+npm test                     # exécute les tests ciblés
 npm run build                # construit la version de production
 npm run start                # démarre la version construite
 ```
 
+## Routes
+
+- `/`, redirigée vers la langue mémorisée ou `/fr` par défaut — page d'accueil publique
+  (français `/fr`, anglais `/en`, arabe `/ar`, avec mise en page RTL pour l'arabe).
+- `/<langue>/diagnostic` — page technique interne de vérification front/back (commit déployé,
+  disponibilité de l'API). Non traduite, non destinée aux visiteurs, toujours `noindex`.
+
 ## État actuel
 
-Une première page de garde existe (nom du projet, présentation courte, indication
-« Environnement de test », et une zone de diagnostic qui vérifie en temps réel la
-communication avec le back-end). Aucune fonctionnalité produit (annonces, comptes,
-messagerie...) n'existe encore — voir le fichier de référence pour le détail exact de ce qui
-est réalisé, prévu ou bloqué.
+Une première page d'accueil publique existe (US-004) : présentation du projet, identité
+visuelle évoquant l'Algérie, section « Comment ça marche ? », emplacement d'attente pour les
+futures annonces, boutons Connexion/Inscription visibles mais désactivés (« Bientôt
+disponible »), et sélecteur de langue fonctionnel (français, anglais, arabe) avec persistance
+du choix. Aucune fonctionnalité produit réelle (annonces, comptes, messagerie...) n'existe
+encore — voir le fichier de référence pour le détail exact de ce qui est réalisé, prévu ou
+bloqué.
 
-Restent à définir : l'organisation entre les cibles web et mobile, l'hébergement définitif, et
-la stratégie de traduction complète (cette page technique est en français pour l'instant).
+Restent à définir : l'organisation entre les cibles web et mobile, le nom de marque définitif
+(« Vetement » est utilisé à titre provisoire), et les pages légales/de contact nécessaires au
+lancement public.
