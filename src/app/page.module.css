@@ -1,0 +1,56 @@
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 3rem 1.25rem;
+  text-align: center;
+}
+
+.envBadge {
+  display: inline-block;
+  padding: 0.3rem 0.9rem;
+  border-radius: 999px;
+  background: #fde68a;
+  color: #713f12;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+@media (prefers-color-scheme: dark) {
+  .envBadge {
+    background: #4a3b0a;
+    color: #fde68a;
+  }
+}
+
+.title {
+  font-size: 2.25rem;
+  margin: 0;
+}
+
+.lede {
+  max-width: 560px;
+  color: #555;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+@media (prefers-color-scheme: dark) {
+  .lede {
+    color: #b3b3b3;
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 1.75rem;
+  }
+
+  .main {
+    padding: 2rem 1rem;
+  }
+}

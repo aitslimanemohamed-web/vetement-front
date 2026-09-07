@@ -1,0 +1,32 @@
+name: CI
+
+# Vérifications automatiques (TECH-003). Le déploiement sera ajouté une fois
+# l'hébergement choisi et validé — voir docs/CONTEXTE_PROJET.md (dépôt vetement-back).
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Installer les dépendances (à partir du fichier de verrouillage)
+        run: npm ci --legacy-peer-deps
+
+      - name: Vérifier les types
+        run: npm run type-check
+
+      - name: Vérifier le code (lint)
+        run: npm run lint
+
+      - name: Construire l'application
+        run: npm run build

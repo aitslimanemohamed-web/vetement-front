@@ -1,0 +1,78 @@
+.panel {
+  width: 100%;
+  max-width: 640px;
+  border: 1px solid var(--panel-border, #d9d9d9);
+  border-radius: 12px;
+  padding: 1.25rem 1.5rem;
+  background: var(--panel-bg, #fafafa);
+}
+
+@media (prefers-color-scheme: dark) {
+  .panel {
+    --panel-border: #333333;
+    --panel-bg: #151515;
+  }
+}
+
+.title {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 0.5rem 1rem;
+  font-size: 0.9rem;
+}
+
+.grid dt {
+  color: #6b6b6b;
+}
+
+.grid dd {
+  margin: 0;
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.15rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.badge.checking {
+  background: #fff3cd;
+  color: #7a5b00;
+}
+
+.badge.ok {
+  background: #d7f5df;
+  color: #14532d;
+}
+
+.badge.down {
+  background: #fbdada;
+  color: #7f1d1d;
+}
+
+.button {
+  margin-top: 1.25rem;
+  padding: 0.5rem 1.1rem;
+  border-radius: 8px;
+  border: 1px solid #888;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.button:not(:disabled):hover {
+  background: rgba(127, 127, 127, 0.1);
+}

@@ -47,6 +47,8 @@ obsolète (nouvelles technologies choisies, nouvelle organisation, etc.).
 
 ## Avant chaque commit
 
+- Exécuter `npm run type-check`, `npm run lint` et `npm run build` — les 3 doivent réussir
+  (c'est aussi ce que vérifie automatiquement la CI sur push).
 - Vérifier qu'aucun secret n'est inclus dans les fichiers ajoutés.
 - Vérifier que les fichiers ajoutés correspondent bien au périmètre du ticket en cours.
 - Vérifier que la documentation reflète l'état réel du projet.

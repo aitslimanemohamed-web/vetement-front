@@ -39,10 +39,30 @@ travail** (dans le dépôt vetement-back) si l'intervention en modifie le conten
 git clone https://github.com/aitslimanemohamed-web/vetement-front.git
 ```
 
+## Technologies
+
+- [Next.js](https://nextjs.org/) 16 avec TypeScript (site web uniquement pour le MVP —
+  applications iOS/Android reportées).
+
+## Développement local
+
+```
+npm install
+cp .env.example .env.local   # puis ajuster NEXT_PUBLIC_API_URL si besoin
+npm run dev                  # démarre le serveur de développement (http://localhost:3000)
+npm run type-check           # vérifie les types TypeScript
+npm run lint                 # vérifie le code
+npm run build                # construit la version de production
+npm run start                # démarre la version construite
+```
+
 ## État actuel
 
-Ce dépôt ne contient pour l'instant aucun code applicatif. Aucune application (web, iOS ou
-Android) n'est exécutable à ce stade.
+Une première page de garde existe (nom du projet, présentation courte, indication
+« Environnement de test », et une zone de diagnostic qui vérifie en temps réel la
+communication avec le back-end). Aucune fonctionnalité produit (annonces, comptes,
+messagerie...) n'existe encore — voir le fichier de référence pour le détail exact de ce qui
+est réalisé, prévu ou bloqué.
 
-Restent à définir : les technologies utilisées, l'organisation entre les cibles web et mobile,
-et les modalités de déploiement.
+Restent à définir : l'organisation entre les cibles web et mobile, l'hébergement définitif, et
+la stratégie de traduction complète (cette page technique est en français pour l'instant).
