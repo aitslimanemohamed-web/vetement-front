@@ -21,7 +21,7 @@
   display: inline-block;
   padding: 0.3rem 0.85rem;
   border-radius: 999px;
-  background: var(--color-sand);
+  background: var(--color-bg-muted);
   color: var(--color-green-strong);
   font-size: 0.8rem;
   font-weight: 700;
@@ -59,8 +59,10 @@
 }
 
 .visual {
-  width: 100%;
-  max-width: 320px;
+  /* Volontairement modeste sur téléphone : accompagne le texte sans occuper à
+     lui seul l'essentiel de la hauteur d'écran (COR-005). */
+  width: 55%;
+  max-width: 220px;
 }
 
 .image {

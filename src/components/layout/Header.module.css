@@ -34,11 +34,11 @@
 .howItWorks {
   font-size: 0.9rem;
   font-weight: 600;
-  color: var(--color-ink-soft);
+  color: var(--color-green-strong);
 }
 
 .howItWorks:hover {
-  color: var(--color-green);
+  text-decoration: underline;
 }
 
 .authButtons {

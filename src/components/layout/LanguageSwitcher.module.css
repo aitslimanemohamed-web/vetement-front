@@ -18,7 +18,7 @@
 }
 
 .active {
-  color: var(--color-green);
+  color: var(--color-green-strong);
   background: var(--color-green-tint);
   text-decoration: underline;
   text-underline-offset: 3px;

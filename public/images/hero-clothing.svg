@@ -1,38 +1,42 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" role="img" aria-hidden="true">
-  <!-- Illustration originale (pas de photographie ni d'asset externe) :
-       un pantalon et un t-shirt stylisés, un bouton et une couture pointillée
-       en rappel discret du rouge algérien. -->
-  <circle cx="200" cy="200" r="170" fill="#e7cda0" opacity="0.45" />
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 300" width="320" height="300" role="img" aria-hidden="true">
+  <!-- Illustration originale (COR-005) : un vêtement sur cintre au premier plan,
+       une seconde pièce légèrement en arrière-plan, fond transparent. Remplace
+       l'ancienne illustration (tunique/pantalon sur grand disque). -->
 
+  <!-- Pièce en arrière-plan (cintre + robe), teinte pâle -->
   <path
-    d="M140 150 L260 150 L275 340 L225 340 L210 220 L190 220 L175 340 L125 340 Z"
-    fill="#c99a5b"
-  />
-
-  <path
-    d="M150 90 L175 60 L225 60 L250 90 L295 115 L270 160 L250 145 L250 300 L150 300 L150 145 L130 160 L105 115 Z"
-    fill="#14523d"
-  />
-
-  <path
-    d="M175 60 L200 85 L225 60"
-    fill="none"
-    stroke="#0d3a2b"
-    stroke-width="4"
-    stroke-linecap="round"
+    d="M213,52 L198,78 L214,94 L204,238 Q245,250 286,238 L276,94 L292,78 L277,52 Q245,64 213,52 Z"
+    fill="#eaf4ee"
+    stroke="#4b5c52"
+    stroke-width="1.5"
     stroke-linejoin="round"
   />
-
-  <circle cx="200" cy="130" r="7" fill="#c1272d" />
-
-  <circle
-    cx="200"
-    cy="200"
-    r="150"
+  <path
+    d="M245,30 c7,0 12,5 12,12 c0,4 -3,7 -6,9"
     fill="none"
-    stroke="#0d3a2b"
-    stroke-width="2"
-    stroke-dasharray="6 8"
-    opacity="0.25"
+    stroke="#4b5c52"
+    stroke-width="3"
+    stroke-linecap="round"
   />
+  <path d="M213,52 L245,38 L277,52" fill="none" stroke="#4b5c52" stroke-width="2" stroke-linecap="round" />
+
+  <!-- Pièce au premier plan (cintre + chemise) -->
+  <path
+    d="M126,48 L104,76 L124,92 L114,234 Q158,248 202,234 L192,92 L212,76 L190,48 Q158,60 126,48 Z"
+    fill="#006233"
+    stroke="#004d28"
+    stroke-width="2"
+    stroke-linejoin="round"
+  />
+  <path
+    d="M158,26 c7,0 12,5 12,12 c0,4 -3,7 -6,9"
+    fill="none"
+    stroke="#004d28"
+    stroke-width="3.5"
+    stroke-linecap="round"
+  />
+  <path d="M126,48 L158,34 L190,48" fill="none" stroke="#004d28" stroke-width="2.5" stroke-linecap="round" />
+
+  <!-- Touche de rouge, ponctuelle -->
+  <circle cx="158" cy="70" r="5" fill="#c62828" />
 </svg>

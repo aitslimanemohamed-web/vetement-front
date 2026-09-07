@@ -36,7 +36,7 @@
 .backToTop {
   font-size: 0.85rem;
   font-weight: 600;
-  color: var(--color-green);
+  color: var(--color-green-strong);
 }
 
 .backToTop:hover {
@@ -47,7 +47,9 @@
   font-size: 0.75rem;
   padding: 0.2rem 0.6rem;
   border-radius: 999px;
-  background: var(--color-sand);
+  /* Fond blanc plutôt que le vert pâle du pied de page : le badge doit
+     rester visuellement distinct de son arrière-plan direct. */
+  background: var(--color-bg-elevated);
   color: var(--color-green-strong);
   font-weight: 700;
   text-transform: uppercase;

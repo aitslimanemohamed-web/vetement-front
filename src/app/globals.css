@@ -50,8 +50,11 @@ img {
   outline-offset: 2px;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
+/* COR-005 : thème clair forcé pour cette version, y compris quand le système
+   est en mode sombre. `color-scheme: light` garde les contrôles natifs
+   (champs, barre de défilement...) clairs eux aussi ; cela ne modifie aucun
+   réglage du navigateur de la personne qui visite le site, seulement la façon
+   dont cette page se présente. */
+html {
+  color-scheme: light;
 }

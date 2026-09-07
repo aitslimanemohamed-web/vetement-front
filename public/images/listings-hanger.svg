@@ -1,24 +1,22 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200" role="img" aria-hidden="true">
-  <!-- Illustration originale : un cintre vide (rien à afficher pour l'instant),
-       accompagné de deux petits repères rouges. -->
-  <circle cx="100" cy="100" r="90" fill="#f3ecdd" />
+  <!-- Illustration originale (COR-005) : même famille graphique que
+       hero-clothing.svg (même épaisseur de trait, mêmes couleurs), sur un
+       fond léger. Remplace les tons dorés de la version précédente. -->
+  <circle cx="100" cy="100" r="90" fill="#eaf4ee" />
 
   <path
-    d="M100 55 a14 14 0 0 1 14 14 c0 6 -4 10 -9 12 l-5 3"
+    d="M100,55 c8,0 14,6 14,14 c0,5 -4,9 -9,11"
     fill="none"
-    stroke="#c99a5b"
+    stroke="#004d28"
     stroke-width="5"
     stroke-linecap="round"
   />
 
   <path
-    d="M100 84 L40 130 a10 10 0 0 0 6 18 h108 a10 10 0 0 0 6 -18 Z"
+    d="M100,80 L45,122 a8,8 0 0 0 5,15 h100 a8,8 0 0 0 5,-15 Z"
     fill="none"
-    stroke="#14523d"
-    stroke-width="6"
+    stroke="#006233"
+    stroke-width="5"
     stroke-linejoin="round"
   />
-
-  <circle cx="150" cy="55" r="4" fill="#c1272d" />
-  <circle cx="162" cy="70" r="2.5" fill="#c1272d" />
 </svg>

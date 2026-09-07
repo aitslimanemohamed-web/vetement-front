@@ -15,17 +15,20 @@
   cursor: not-allowed;
 }
 
+/* État désactivé : des couleurs dédiées (pas une opacité réduite sur tout le
+   bouton) pour garder un contraste texte/fond mesurable et suffisant, même
+   inactif — voir CONTEXTE_PROJET.md (COR-005) pour le rapport de contraste
+   mesuré (5,36:1 pour le variant "primary", 7,11:1 pour "secondary"). */
 .button.primary {
-  background: var(--color-green);
-  color: var(--color-bg-elevated);
-  opacity: 0.55;
+  background: var(--color-border);
+  color: var(--color-ink-soft);
+  border-color: var(--color-border);
 }
 
 .button.secondary {
   background: transparent;
   border-color: var(--color-border);
   color: var(--color-ink-soft);
-  opacity: 0.75;
 }
 
 .caption {

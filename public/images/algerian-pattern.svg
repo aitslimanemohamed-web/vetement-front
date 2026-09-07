@@ -2,8 +2,9 @@
   <!-- Motif géométrique original (deux carrés superposés à 45°, étoile à huit
        branches), inspiré des tracés de zellige/artisanat maghrébin. Utilisé en
        fond répété discret via CSS (background-repeat), jamais comme image
-       porteuse d'information : purement décoratif. -->
-  <g fill="none" stroke="#0d3a2b" stroke-width="1" stroke-opacity="0.14">
+       porteuse d'information : purement décoratif. Recoloré (COR-005) pour
+       suivre la nouvelle palette. -->
+  <g fill="none" stroke="#004d28" stroke-width="1" stroke-opacity="0.14">
     <rect x="12" y="12" width="24" height="24" transform="rotate(45 24 24)" />
     <rect x="12" y="12" width="24" height="24" />
   </g>
