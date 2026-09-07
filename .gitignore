@@ -1,0 +1,26 @@
+# Secrets et configuration locale sensible
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+*.p12
+secrets/
+
+# Autoriser explicitement les exemples sans secret
+!.env.example
+
+# Fichiers système
+.DS_Store
+Thumbs.db
+
+# Fichiers d'éditeur/IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Fichiers temporaires
+*.log
+*.tmp
+*.bak

@@ -1,0 +1,47 @@
+# Instructions pour Claude Code — vetement-front
+
+## Rôle de ce dépôt
+
+Ce dépôt est le **front-end** du projet vetement (site web + applications mobiles iOS/Android).
+Il est indépendant du dépôt **vetement-back** (API, règles métier, données) : les deux dépôts
+ont chacun leur propre historique Git et leur propre dépôt GitHub. Ne jamais supposer un accès
+direct au code du back-end depuis ce dépôt.
+
+## Avant de travailler
+
+Toujours lire le ticket concerné avant de commencer un travail dans ce dépôt. Ne pas déduire le
+périmètre d'une tâche à partir du code existant seul.
+
+## Ce qu'il ne faut pas faire sans validation explicite
+
+- Ne pas ajouter de fonctionnalité qui ne figure pas dans le ticket en cours.
+- Ne pas choisir un framework, une librairie ou une technologie qui n'a pas été validée par
+  l'utilisateur au préalable.
+- Ne pas créer de configuration de déploiement ou d'outillage non demandé.
+
+## Préservation du travail existant
+
+Avant de modifier ou remplacer un fichier, vérifier s'il contient déjà du travail — ne rien
+écraser ni supprimer sans certitude que ce n'est plus nécessaire.
+
+## Secrets
+
+Ne jamais committer de secret (mot de passe, clé d'API, jeton, certificat...). Un fichier
+`.env.example` sans valeur réelle peut être versionné ; un `.env` réel ne doit jamais l'être.
+
+## Documentation
+
+Mettre à jour le `README.md` de ce dépôt dès qu'un changement rend une information existante
+obsolète (nouvelles technologies choisies, nouvelle organisation, etc.).
+
+## Avant chaque commit
+
+- Vérifier qu'aucun secret n'est inclus dans les fichiers ajoutés.
+- Vérifier que les fichiers ajoutés correspondent bien au périmètre du ticket en cours.
+- Vérifier que la documentation reflète l'état réel du projet.
+
+## Commits et push
+
+Les commits et les push de ce dépôt se font uniquement dans **vetement-front**. Si un ticket
+futur modifie à la fois le front-end et le back-end, les changements de chaque dépôt doivent
+être vérifiés et publiés séparément, chacun dans son propre dépôt.
