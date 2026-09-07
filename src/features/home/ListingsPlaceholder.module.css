@@ -1,7 +1,7 @@
 .section {
-  background-image: url('/images/algerian-pattern.svg');
-  background-repeat: repeat;
-  background-size: 48px 48px;
+  /* COR-006 : fond uni clair — plus de motif étoilé répété (voir
+     CONTEXTE_PROJET.md, règle graphique). */
+  background: var(--color-bg);
   padding: 3.5rem 1.5rem;
 }
 
