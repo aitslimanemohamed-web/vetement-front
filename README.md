@@ -67,19 +67,23 @@ npm run start                # démarre la version construite
 
 - `/`, redirigée vers la langue mémorisée ou `/fr` par défaut — page d'accueil publique
   (français `/fr`, anglais `/en`, arabe `/ar`, avec mise en page RTL pour l'arabe).
+- `/<langue>/inscription` — création de compte avec validation entièrement locale (nom
+  d'utilisateur, mot de passe, confirmation) ; aucun appel réseau, aucun compte réellement créé
+  (US-007).
 - `/<langue>/diagnostic` — page technique interne de vérification front/back (commit déployé,
   disponibilité de l'API). Non traduite, non destinée aux visiteurs, toujours `noindex`.
 
 ## État actuel
 
-Une première page d'accueil publique existe (US-004) : présentation du projet, identité
-visuelle évoquant l'Algérie, section « Comment ça marche ? », emplacement d'attente pour les
-futures annonces, boutons Connexion/Inscription visibles mais désactivés (« Bientôt
-disponible »), et sélecteur de langue fonctionnel (français, anglais, arabe) avec persistance
-du choix. Aucune fonctionnalité produit réelle (annonces, comptes, messagerie...) n'existe
-encore — voir le fichier de référence pour le détail exact de ce qui est réalisé, prévu ou
-bloqué.
+La page d'accueil publique (US-004) présente le projet avec une identité visuelle évoquant
+l'Algérie, une section « Comment ça marche ? », un emplacement d'attente pour les futures
+annonces, et un sélecteur de langue fonctionnel (français, anglais, arabe) avec persistance du
+choix. Le bouton **Inscription** ouvre désormais une vraie page (US-007) ; le bouton
+**Connexion** reste désactivé (« Bientôt disponible ») tant que sa page n'existe pas. Aucune
+fonctionnalité connectée à un serveur (comptes réels, annonces, messagerie...) n'existe encore
+— voir le fichier de référence pour le détail exact de ce qui est réalisé, prévu ou bloqué.
 
 Restent à définir : l'organisation entre les cibles web et mobile, le nom de marque définitif
-(« Vetement » est utilisé à titre provisoire), et les pages légales/de contact nécessaires au
-lancement public.
+(« Vetement » est utilisé à titre provisoire), le raccordement de l'inscription à un vrai
+back-end, la page de connexion, et les pages légales/de contact nécessaires au lancement
+public.
