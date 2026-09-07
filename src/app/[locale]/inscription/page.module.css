@@ -4,6 +4,15 @@
   padding: 2.5rem 1.5rem 4rem;
 }
 
+/* Marges latérales resserrées (mais jamais sous 16px) sur les très petits
+   écrans, plutôt que de compter sur un overflow-x global pour masquer un
+   éventuel débordement (COR-008). */
+@media (max-width: 380px) {
+  .main {
+    padding-inline: 1rem;
+  }
+}
+
 .title {
   font-size: 1.75rem;
   font-weight: 800;

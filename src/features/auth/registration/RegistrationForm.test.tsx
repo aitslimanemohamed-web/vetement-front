@@ -80,11 +80,45 @@ describe('RegistrationForm', () => {
     const password = screen.getByLabelText('Mot de passe') as HTMLInputElement;
     expect(password).toHaveAttribute('type', 'password');
 
-    await user.click(screen.getByRole('button', { name: 'Afficher le mot de passe' }));
+    const toggle = screen.getByRole('button', { name: 'Afficher le mot de passe' });
+    expect(toggle).toHaveAttribute('type', 'button');
+    expect(toggle).toHaveAttribute('aria-pressed', 'false');
+
+    await user.click(toggle);
     expect(password).toHaveAttribute('type', 'text');
+    expect(screen.getByRole('button', { name: 'Masquer le mot de passe' })).toHaveAttribute(
+      'aria-pressed',
+      'true',
+    );
 
     await user.click(screen.getByRole('button', { name: 'Masquer le mot de passe' }));
     expect(password).toHaveAttribute('type', 'password');
+  });
+
+  it('toggles via the keyboard and keeps the typed value and focus behavior intact', async () => {
+    const user = userEvent.setup();
+    renderForm();
+
+    const password = screen.getByLabelText('Mot de passe') as HTMLInputElement;
+    await user.type(password, VALID_PASSWORD);
+
+    await user.tab(); // username -> password already focused after typing; tab moves to the toggle button
+    const toggle = screen.getByRole('button', { name: 'Afficher le mot de passe' });
+    toggle.focus();
+    await user.keyboard('{Enter}');
+
+    expect(password).toHaveAttribute('type', 'text');
+    expect(password.value).toBe(VALID_PASSWORD); // toggling never alters the value
+  });
+
+  it('toggles the password and confirmation fields independently', async () => {
+    const user = userEvent.setup();
+    renderForm();
+
+    await user.click(screen.getByRole('button', { name: 'Afficher le mot de passe' }));
+
+    expect(screen.getByLabelText('Mot de passe')).toHaveAttribute('type', 'text');
+    expect(screen.getByLabelText('Confirmer le mot de passe')).toHaveAttribute('type', 'password');
   });
 
   it('shows the local success message and clears both password fields, without any network call', async () => {
