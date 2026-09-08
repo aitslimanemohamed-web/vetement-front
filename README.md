@@ -72,13 +72,19 @@ npm run start                # démarre la version construite
   le compte et une session (US-009, US-010). Aucun mot de passe n'est jamais stocké côté front ni
   renvoyé par l'API. Redirige automatiquement vers `/<langue>/espace` en cas de succès, ou vers
   `/<langue>/espace` directement si un visiteur déjà connecté l'ouvre.
+- `/<langue>/connexion` — connexion d'un compte existant (US-011) : nom d'utilisateur, mot de
+  passe (icône œil réutilisée de l'inscription), aucune validation de format locale (seule la
+  présence des deux champs est vérifiée — les règles de création ne s'appliquent pas à la
+  connexion). Un nom inconnu et un mot de passe incorrect donnent exactement le même message,
+  sans indiquer lequel des deux est en cause. Redirige vers `/<langue>/espace` en cas de succès ou
+  si un visiteur déjà connecté l'ouvre.
 - `/<langue>/espace` — espace connecté (US-010) : nom d'utilisateur réel, avatar par défaut,
   déconnexion. Protégé côté serveur (redirection vers l'accueil sans session valide, sans jamais
   laisser apparaître de contenu privé). Session opaque stockée dans PostgreSQL (`app.sessions`),
   cookie `HttpOnly`/`Secure`/`SameSite=Lax`, jamais dans `localStorage`.
 - `/<langue>/diagnostic` — page technique interne de vérification front/back (commit déployé,
   disponibilité de l'API). Non traduite, non destinée aux visiteurs, toujours `noindex`.
-- `/api/auth/{register,me,logout}` — routes relais de même origine vers l'API NestJS
+- `/api/auth/{register,login,me,logout}` — routes relais de même origine vers l'API NestJS
   (`INTERNAL_API_URL`, variable serveur) : le navigateur ne parle jamais directement à Render pour
   ces actions (cookie de session posé sur le domaine du site, jamais un cookie tiers — voir
   CONTEXTE_PROJET.md pour le détail de l'architecture).
@@ -91,11 +97,11 @@ annonces, et un sélecteur de langue fonctionnel (français, anglais, arabe) ave
 choix. Le bouton **Inscription** ouvre une vraie page connectée au back-end : un compte est
 réellement créé en base et connecte automatiquement l'utilisateur à son espace (US-009, US-010).
 Une fois connecté, l'en-tête affiche le nom du compte, un avatar par défaut et un bouton de
-déconnexion réel à la place des actions Connexion/Inscription. Le bouton **Connexion** (pour un
-compte déjà existant) reste désactivé (« Bientôt disponible ») tant que sa page n'existe pas.
+déconnexion réel à la place des actions Connexion/Inscription. Le bouton **Connexion** ouvre
+désormais une vraie page (US-011) permettant à un compte déjà existant de se reconnecter.
 Aucune autre fonctionnalité connectée à un serveur (annonces, messagerie...) n'existe encore —
 voir le fichier de référence pour le détail exact de ce qui est réalisé, prévu ou bloqué.
 
 Restent à définir : l'organisation entre les cibles web et mobile, le nom de marque définitif
-(« Vetement » est utilisé à titre provisoire), la page de connexion pour un compte existant, la
-récupération de compte, et les pages légales/de contact nécessaires au lancement public.
+(« Vetement » est utilisé à titre provisoire), la récupération de compte, et les pages
+légales/de contact nécessaires au lancement public.
