@@ -3,17 +3,40 @@
 import { useId, useRef, useState, type FormEvent } from 'react';
 import { useTranslations } from 'next-intl';
 import { DisabledActionButton } from '@/components/ui/DisabledActionButton';
+import { Link } from '@/i18n/navigation';
 import { PasswordField } from './PasswordField';
+import { callRegisterApi } from './register-api';
 import { validateRegistrationForm, type RegistrationMessages } from './validation';
 import styles from './RegistrationForm.module.css';
 
 type FieldName = 'username' | 'password' | 'confirmPassword';
+type Translator = ReturnType<typeof useTranslations<'registration'>>;
 
-// Formulaire d'inscription (US-007) : validation entièrement locale, aucun
-// appel réseau. Les valeurs ne vivent que dans l'état de ce composant — jamais
-// dans l'URL, un cookie, localStorage/sessionStorage, un journal ou un outil
-// d'analyse. Les deux champs de mot de passe sont effacés après une
-// soumission localement valide (voir handleSubmit).
+const SLOW_SERVER_HINT_DELAY_MS = 10_000;
+
+// Codes renvoyés par le back-end pour une erreur de champ (US-009) — mêmes
+// libellés traduits que la validation locale, pour une expérience cohérente
+// quelle que soit l'origine de l'erreur.
+const SERVER_FIELD_ERROR_KEYS = {
+  USERNAME_REQUIRED: 'usernameRequired',
+  USERNAME_LENGTH: 'usernameLength',
+  USERNAME_FORMAT: 'usernameFormat',
+  PASSWORD_REQUIRED: 'passwordRequired',
+  PASSWORD_TOO_SHORT: 'passwordTooShort',
+  PASSWORD_TOO_LONG: 'passwordTooLong',
+} as const;
+
+function translateServerFieldCode(code: string, t: Translator): string {
+  const key = (SERVER_FIELD_ERROR_KEYS as Record<string, string>)[code];
+  return key ? t(`errors.${key}` as Parameters<Translator>[0]) : t('serverErrors.unexpected');
+}
+
+// Formulaire d'inscription (US-009) : validation locale inchangée (US-007),
+// puis un unique appel réel à l'API d'inscription NestJS. Les valeurs ne
+// vivent que dans l'état de ce composant — jamais dans l'URL, un cookie,
+// localStorage/sessionStorage, un journal ou un outil d'analyse. Les deux
+// champs de mot de passe sont effacés après une création confirmée par le
+// serveur (jamais sur la seule base de la validation locale).
 export function RegistrationForm() {
   const t = useTranslations('registration');
 
@@ -26,7 +49,11 @@ export function RegistrationForm() {
     confirmPassword: false,
   });
   const [submitted, setSubmitted] = useState(false);
-  const [successVisible, setSuccessVisible] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [showSlowHint, setShowSlowHint] = useState(false);
+  const [accountCreated, setAccountCreated] = useState(false);
+  const [serverError, setServerError] = useState<string | null>(null);
+  const [serverFieldErrors, setServerFieldErrors] = useState<{ username?: string; password?: string }>({});
 
   const usernameRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
@@ -52,29 +79,43 @@ export function RegistrationForm() {
   const showPasswordError = (touched.password || submitted) && Boolean(errors.password);
   const showConfirmError = (touched.confirmPassword || submitted) && Boolean(errors.confirmPassword);
 
+  const usernameDisplayError = serverFieldErrors.username ?? (showUsernameError ? errors.username : undefined);
+  const passwordDisplayError = serverFieldErrors.password ?? (showPasswordError ? errors.password : undefined);
+
   function markTouched(field: FieldName) {
     setTouched((current) => (current[field] ? current : { ...current, [field]: true }));
   }
 
+  function resetTransientState() {
+    if (accountCreated) setAccountCreated(false);
+    if (serverError) setServerError(null);
+  }
+
   function handleUsernameChange(value: string) {
     setUsername(value);
-    if (successVisible) setSuccessVisible(false);
+    if (serverFieldErrors.username) setServerFieldErrors((current) => ({ ...current, username: undefined }));
+    resetTransientState();
   }
 
   function handlePasswordChange(value: string) {
     setPassword(value);
-    if (successVisible) setSuccessVisible(false);
+    if (serverFieldErrors.password) setServerFieldErrors((current) => ({ ...current, password: undefined }));
+    resetTransientState();
   }
 
   function handleConfirmChange(value: string) {
     setConfirmPassword(value);
-    if (successVisible) setSuccessVisible(false);
+    resetTransientState();
   }
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (submitting) return; // empêche les doubles soumissions
+
     setSubmitted(true);
     setTouched({ username: true, password: true, confirmPassword: true });
+    setServerError(null);
+    setServerFieldErrors({});
 
     if (errors.username) {
       usernameRef.current?.focus();
@@ -89,19 +130,73 @@ export function RegistrationForm() {
       return;
     }
 
-    // Validation locale réussie : aucun compte n'est créé, aucune requête
-    // n'est envoyée. Les mots de passe ne sont pas conservés au-delà de ce
-    // point.
-    setSuccessVisible(true);
-    setPassword('');
-    setConfirmPassword('');
-    setSubmitted(false);
-    setTouched((current) => ({ ...current, password: false, confirmPassword: false }));
+    setSubmitting(true);
+    setShowSlowHint(false);
+    const slowHintTimer = setTimeout(() => setShowSlowHint(true), SLOW_SERVER_HINT_DELAY_MS);
+
+    const result = await callRegisterApi(username, password);
+
+    clearTimeout(slowHintTimer);
+    setSubmitting(false);
+    setShowSlowHint(false);
+
+    switch (result.kind) {
+      case 'success': {
+        setAccountCreated(true);
+        setPassword('');
+        setConfirmPassword('');
+        setSubmitted(false);
+        setTouched((current) => ({ ...current, password: false, confirmPassword: false }));
+        break;
+      }
+      case 'field-error': {
+        const mapped: { username?: string; password?: string } = {};
+        if (result.fieldErrors.username) {
+          mapped.username = translateServerFieldCode(result.fieldErrors.username, t);
+        }
+        if (result.fieldErrors.password) {
+          mapped.password = translateServerFieldCode(result.fieldErrors.password, t);
+        }
+        setServerFieldErrors(mapped);
+        if (mapped.username) usernameRef.current?.focus();
+        else if (mapped.password) passwordRef.current?.focus();
+        break;
+      }
+      case 'username-taken':
+        setServerFieldErrors({ username: t('serverErrors.usernameTaken') });
+        usernameRef.current?.focus();
+        break;
+      case 'password-too-common':
+        setServerFieldErrors({ password: t('serverErrors.passwordTooCommon') });
+        passwordRef.current?.focus();
+        break;
+      case 'rate-limited':
+        setServerError(t('serverErrors.rateLimited'));
+        break;
+      case 'service-unavailable':
+        setServerError(t('serverErrors.serviceUnavailable'));
+        break;
+      case 'unknown-result':
+        setServerError(t('serverErrors.unknownResult'));
+        break;
+      case 'unexpected':
+      default:
+        setServerError(t('serverErrors.unexpected'));
+        break;
+    }
   }
 
-  const usernameDescribedBy = [usernameHelpId, showUsernameError ? usernameErrorId : null]
+  const usernameDescribedBy = [usernameHelpId, usernameDisplayError ? usernameErrorId : null]
     .filter(Boolean)
     .join(' ');
+
+  const statusMessage = submitting
+    ? showSlowHint
+      ? `${t('submitting')} ${t('slowServerHint')}`
+      : t('submitting')
+    : accountCreated
+      ? t('successMessage')
+      : (serverError ?? '');
 
   return (
     <form className={styles.form} onSubmit={handleSubmit} noValidate>
@@ -121,16 +216,16 @@ export function RegistrationForm() {
           autoComplete="username"
           spellCheck={false}
           autoCapitalize="none"
-          aria-invalid={showUsernameError || undefined}
+          aria-invalid={Boolean(usernameDisplayError) || undefined}
           aria-describedby={usernameDescribedBy}
           className={styles.input}
         />
         <p id={usernameHelpId} className={styles.help}>
           {t('username.help')}
         </p>
-        {showUsernameError && (
+        {usernameDisplayError && (
           <p id={usernameErrorId} className={styles.error}>
-            {errors.username}
+            {usernameDisplayError}
           </p>
         )}
       </div>
@@ -146,7 +241,7 @@ export function RegistrationForm() {
         autoComplete="new-password"
         showLabel={t('password.show')}
         hideLabel={t('password.hide')}
-        error={showPasswordError ? errors.password : undefined}
+        error={passwordDisplayError}
       />
 
       <PasswordField
@@ -162,13 +257,19 @@ export function RegistrationForm() {
         error={showConfirmError ? errors.confirmPassword : undefined}
       />
 
-      <button type="submit" className={styles.submit}>
-        {t('submit')}
+      <button type="submit" className={styles.submit} disabled={submitting}>
+        {submitting ? t('submitting') : t('submit')}
       </button>
 
       <p className={styles.status} role="status" aria-live="polite">
-        {successVisible ? t('successMessage') : ''}
+        {statusMessage}
       </p>
+
+      {accountCreated && (
+        <p className={styles.backHomeAfterSuccess}>
+          <Link href="/">{t('backToHome')}</Link>
+        </p>
+      )}
 
       <p className={styles.loginPrompt}>
         <span>{t('loginPrompt')}</span>

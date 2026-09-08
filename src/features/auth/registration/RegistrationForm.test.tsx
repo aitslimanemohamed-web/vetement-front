@@ -5,6 +5,13 @@ import { NextIntlClientProvider } from 'next-intl';
 import messages from '@/messages/fr.json';
 import { RegistrationForm } from './RegistrationForm';
 
+// next-intl's <Link> pulls in next/navigation internals that aren't
+// resolvable outside a real Next.js build — stand in with a plain <a>, as
+// LanguageSwitcher.test.tsx already does for the same reason.
+vi.mock('@/i18n/navigation', () => ({
+  Link: ({ children, href }: { children: React.ReactNode; href: string }) => <a href={href}>{children}</a>,
+}));
+
 function renderForm() {
   return render(
     <NextIntlClientProvider locale="fr" messages={messages}>
@@ -121,8 +128,16 @@ describe('RegistrationForm', () => {
     expect(screen.getByLabelText('Confirmer le mot de passe')).toHaveAttribute('type', 'password');
   });
 
-  it('shows the local success message and clears both password fields, without any network call', async () => {
-    const fetchSpy = vi.spyOn(globalThis, 'fetch');
+  it('sends only username and password to the register API, once, and shows the server success message', async () => {
+    const fetchSpy = vi.spyOn(globalThis, 'fetch').mockResolvedValue(
+      new Response(
+        JSON.stringify({
+          status: 'ACCOUNT_CREATED',
+          user: { id: 'fake-id', username: VALID_USERNAME, createdAt: '2026-01-01T00:00:00.000Z' },
+        }),
+        { status: 201, headers: { 'Content-Type': 'application/json' } },
+      ),
+    );
     const user = userEvent.setup();
     renderForm();
 
@@ -133,16 +148,100 @@ describe('RegistrationForm', () => {
     await user.click(screen.getByRole('button', { name: "S'inscrire" }));
 
     expect(
-      await screen.findByText(
-        "Le formulaire est valide. La création de compte sera disponible prochainement. Aucun compte n'a été créé.",
-      ),
+      await screen.findByText('Votre compte a été créé. La connexion sera disponible prochainement.'),
     ).toBeInTheDocument();
+
+    expect(fetchSpy).toHaveBeenCalledTimes(1);
+    const [, requestInit] = fetchSpy.mock.calls[0]!;
+    expect(JSON.parse(requestInit!.body as string)).toEqual({
+      username: VALID_USERNAME,
+      password: VALID_PASSWORD,
+    });
 
     expect((screen.getByLabelText('Mot de passe') as HTMLInputElement).value).toBe('');
     expect((screen.getByLabelText('Confirmer le mot de passe') as HTMLInputElement).value).toBe('');
     expect((screen.getByLabelText("Nom d'utilisateur") as HTMLInputElement).value).toBe(VALID_USERNAME);
-    expect(fetchSpy).not.toHaveBeenCalled();
 
+    fetchSpy.mockRestore();
+  });
+
+  it('never shows success on local validation alone, and disables the submit button while the request is in flight', async () => {
+    let resolveFetch: (value: Response) => void = () => {};
+    const fetchSpy = vi.spyOn(globalThis, 'fetch').mockReturnValue(
+      new Promise((resolve) => {
+        resolveFetch = resolve;
+      }),
+    );
+    const user = userEvent.setup();
+    renderForm();
+
+    await user.type(screen.getByLabelText("Nom d'utilisateur"), VALID_USERNAME);
+    await user.type(screen.getByLabelText('Mot de passe'), VALID_PASSWORD);
+    await user.type(screen.getByLabelText('Confirmer le mot de passe'), VALID_PASSWORD);
+    await user.click(screen.getByRole('button', { name: "S'inscrire" }));
+
+    const submitButton = await screen.findByRole('button', { name: 'Création du compte…' });
+    expect(submitButton).toBeDisabled();
+    expect(
+      screen.queryByText('Votre compte a été créé. La connexion sera disponible prochainement.'),
+    ).not.toBeInTheDocument();
+
+    resolveFetch(
+      new Response(
+        JSON.stringify({
+          status: 'ACCOUNT_CREATED',
+          user: { id: 'fake-id', username: VALID_USERNAME, createdAt: '2026-01-01T00:00:00.000Z' },
+        }),
+        { status: 201, headers: { 'Content-Type': 'application/json' } },
+      ),
+    );
+
+    expect(
+      await screen.findByText('Votre compte a été créé. La connexion sera disponible prochainement.'),
+    ).toBeInTheDocument();
+    fetchSpy.mockRestore();
+  });
+
+  it('shows a translated, field-linked error when the username is already taken', async () => {
+    const fetchSpy = vi.spyOn(globalThis, 'fetch').mockResolvedValue(
+      new Response(JSON.stringify({ status: 'USERNAME_TAKEN' }), {
+        status: 409,
+        headers: { 'Content-Type': 'application/json' },
+      }),
+    );
+    const user = userEvent.setup();
+    renderForm();
+
+    await user.type(screen.getByLabelText("Nom d'utilisateur"), VALID_USERNAME);
+    await user.type(screen.getByLabelText('Mot de passe'), VALID_PASSWORD);
+    await user.type(screen.getByLabelText('Confirmer le mot de passe'), VALID_PASSWORD);
+    await user.click(screen.getByRole('button', { name: "S'inscrire" }));
+
+    expect(
+      await screen.findByText("Ce nom d'utilisateur est déjà utilisé. Choisissez-en un autre."),
+    ).toBeInTheDocument();
+    expect(screen.getByLabelText("Nom d'utilisateur")).toHaveFocus();
+    fetchSpy.mockRestore();
+  });
+
+  it('shows a generic message and never claims success when the response is lost (timeout/network failure)', async () => {
+    const fetchSpy = vi.spyOn(globalThis, 'fetch').mockRejectedValue(new DOMException('Aborted', 'AbortError'));
+    const user = userEvent.setup();
+    renderForm();
+
+    await user.type(screen.getByLabelText("Nom d'utilisateur"), VALID_USERNAME);
+    await user.type(screen.getByLabelText('Mot de passe'), VALID_PASSWORD);
+    await user.type(screen.getByLabelText('Confirmer le mot de passe'), VALID_PASSWORD);
+    await user.click(screen.getByRole('button', { name: "S'inscrire" }));
+
+    expect(
+      await screen.findByText(
+        "Nous n'avons pas pu confirmer la création du compte. Elle a peut-être été effectuée.",
+      ),
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByText('Votre compte a été créé. La connexion sera disponible prochainement.'),
+    ).not.toBeInTheDocument();
     fetchSpy.mockRestore();
   });
 

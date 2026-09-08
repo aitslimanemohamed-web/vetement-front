@@ -49,7 +49,7 @@
   },
   "registration": {
     "title": "Create an account",
-    "testNotice": "Test version: no account will be created.",
+    "testNotice": "Test environment: created accounts are for testing only. Use a password reserved for this test.",
     "backToHome": "Back to home",
     "username": {
       "label": "Username",
@@ -67,7 +67,9 @@
       "hide": "Hide password confirmation"
     },
     "submit": "Sign up",
-    "successMessage": "The form is valid. Account creation will be available soon. No account was created.",
+    "submitting": "Creating account…",
+    "slowServerHint": "The server may be starting up, please wait.",
+    "successMessage": "Your account has been created. Logging in will be available soon.",
     "loginPrompt": "Already have an account?",
     "loginAction": "Log in",
     "comingSoon": "Coming soon",
@@ -80,6 +82,14 @@
       "passwordTooLong": "Use at most 128 characters.",
       "confirmRequired": "Confirm your password.",
       "confirmMismatch": "Passwords don't match."
+    },
+    "serverErrors": {
+      "usernameTaken": "This username is already taken. Choose another one.",
+      "passwordTooCommon": "This password is too common. Choose a different passphrase.",
+      "rateLimited": "Too many attempts. Please try again shortly.",
+      "serviceUnavailable": "The service is temporarily unavailable. Please try again later.",
+      "unexpected": "Something went wrong. Please try again.",
+      "unknownResult": "We couldn't confirm your account was created. It may have been created anyway."
     }
   }
 }

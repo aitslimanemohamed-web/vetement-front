@@ -62,7 +62,14 @@
   cursor: pointer;
 }
 
-.submit:hover {
+.submit:hover:not(:disabled) {
+  background: var(--color-green-strong);
+}
+
+.submit:disabled {
+  /* Pas de réduction d'opacité (règle COR-005) : le texte "Création du
+     compte…" doit rester aussi lisible que l'état actif. */
+  cursor: not-allowed;
   background: var(--color-green-strong);
 }
 
@@ -71,6 +78,16 @@
   font-size: 0.9rem;
   font-weight: 600;
   color: var(--color-green-strong);
+}
+
+.backHomeAfterSuccess {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.backHomeAfterSuccess a {
+  color: var(--color-green-strong);
+  text-decoration: underline;
 }
 
 .loginPrompt {
