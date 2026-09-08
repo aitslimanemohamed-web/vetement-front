@@ -9,7 +9,6 @@
     "howItWorks": "How it works",
     "login": "Log in",
     "signup": "Sign up",
-    "comingSoon": "Coming soon",
     "mySpace": "My space"
   },
   "languageSwitcher": {
@@ -73,7 +72,6 @@
     "redirecting": "Your account has been created. Opening your space…",
     "loginPrompt": "Already have an account?",
     "loginAction": "Log in",
-    "comingSoon": "Coming soon",
     "errors": {
       "usernameRequired": "Enter a username.",
       "usernameLength": "Username must be between 3 and 30 characters.",
@@ -109,6 +107,34 @@
       "inProgress": "Logging out…",
       "error": "Logout failed. Please try again.",
       "confirmation": "You're logged out."
+    }
+  },
+  "login": {
+    "title": "Log in",
+    "username": {
+      "label": "Username"
+    },
+    "password": {
+      "label": "Password",
+      "show": "Show password",
+      "hide": "Hide password"
+    },
+    "submit": "Log in",
+    "submitting": "Logging in…",
+    "slowServerHint": "The server may be starting up, please wait.",
+    "redirecting": "Logged in. Opening your space…",
+    "createAccountPrompt": "Don't have an account yet?",
+    "createAccountAction": "Create an account",
+    "errors": {
+      "usernameRequired": "Enter a username.",
+      "passwordRequired": "Enter a password."
+    },
+    "serverErrors": {
+      "invalidCredentials": "Incorrect username or password.",
+      "rateLimited": "Too many attempts. Please wait a moment before trying again.",
+      "serviceUnavailable": "The service is temporarily unavailable. Please try again later.",
+      "unexpected": "Something went wrong. Please try again.",
+      "unknownResult": "We couldn't confirm the login. Please try again if needed."
     }
   }
 }

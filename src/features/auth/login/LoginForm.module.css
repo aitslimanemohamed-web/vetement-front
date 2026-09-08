@@ -1,0 +1,91 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.label {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--color-ink);
+}
+
+.input {
+  width: 100%;
+  min-height: 48px;
+  box-sizing: border-box;
+  padding: 0.6rem 0.8rem;
+  border-radius: var(--radius-md);
+  border: 1.5px solid var(--color-border);
+  font: inherit;
+  /* >= 16px : évite le zoom automatique de Safari iOS au focus. */
+  font-size: 1rem;
+  color: var(--color-ink);
+  background: var(--color-bg-elevated);
+}
+
+.input[aria-invalid='true'] {
+  border-color: var(--color-red);
+}
+
+.error {
+  font-size: 0.82rem;
+  color: var(--color-red);
+  font-weight: 600;
+  overflow-wrap: break-word;
+}
+
+.submit {
+  align-self: stretch;
+  text-align: center;
+  padding: 0.7rem 1.5rem;
+  border-radius: var(--radius-md);
+  border: none;
+  background: var(--color-green);
+  color: var(--color-bg-elevated);
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.submit:hover:not(:disabled) {
+  background: var(--color-green-strong);
+}
+
+.submit:disabled {
+  cursor: not-allowed;
+  background: var(--color-green-strong);
+}
+
+.status {
+  min-height: 1.4em;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-green-strong);
+}
+
+.createAccountPrompt {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  font-size: 0.85rem;
+  color: var(--color-ink-soft);
+  margin-top: 0.5rem;
+}
+
+.createAccountPrompt a {
+  color: var(--color-green-strong);
+  font-weight: 600;
+}
+
+.createAccountPrompt a:hover {
+  text-decoration: underline;
+}

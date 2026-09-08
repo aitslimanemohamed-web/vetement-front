@@ -9,7 +9,6 @@
     "howItWorks": "Comment ça marche ?",
     "login": "Connexion",
     "signup": "Inscription",
-    "comingSoon": "Bientôt disponible",
     "mySpace": "Mon espace"
   },
   "languageSwitcher": {
@@ -73,7 +72,6 @@
     "redirecting": "Votre compte a été créé. Ouverture de votre espace…",
     "loginPrompt": "Déjà un compte ?",
     "loginAction": "Se connecter",
-    "comingSoon": "Bientôt disponible",
     "errors": {
       "usernameRequired": "Saisissez un nom d'utilisateur.",
       "usernameLength": "Le nom d'utilisateur doit contenir entre 3 et 30 caractères.",
@@ -109,6 +107,34 @@
       "inProgress": "Déconnexion…",
       "error": "La déconnexion a échoué. Réessayez.",
       "confirmation": "Vous êtes déconnecté."
+    }
+  },
+  "login": {
+    "title": "Se connecter",
+    "username": {
+      "label": "Nom d'utilisateur"
+    },
+    "password": {
+      "label": "Mot de passe",
+      "show": "Afficher le mot de passe",
+      "hide": "Masquer le mot de passe"
+    },
+    "submit": "Se connecter",
+    "submitting": "Connexion…",
+    "slowServerHint": "Le serveur démarre peut-être, merci de patienter.",
+    "redirecting": "Connexion réussie. Ouverture de votre espace…",
+    "createAccountPrompt": "Pas encore de compte ?",
+    "createAccountAction": "Créer un compte",
+    "errors": {
+      "usernameRequired": "Saisissez un nom d'utilisateur.",
+      "passwordRequired": "Saisissez un mot de passe."
+    },
+    "serverErrors": {
+      "invalidCredentials": "Nom d'utilisateur ou mot de passe incorrect.",
+      "rateLimited": "Trop de tentatives. Patientez quelques instants avant de réessayer.",
+      "serviceUnavailable": "Le service est temporairement indisponible. Réessayez plus tard.",
+      "unexpected": "Une erreur est survenue. Veuillez réessayer.",
+      "unknownResult": "Nous n'avons pas pu confirmer la connexion. Réessayez si besoin."
     }
   }
 }

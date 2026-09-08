@@ -9,7 +9,6 @@
     "howItWorks": "كيف يعمل؟",
     "login": "تسجيل الدخول",
     "signup": "إنشاء حساب",
-    "comingSoon": "قريبًا",
     "mySpace": "فضائي"
   },
   "languageSwitcher": {
@@ -73,7 +72,6 @@
     "redirecting": "تم إنشاء حسابك. جارٍ فتح فضائك الخاص…",
     "loginPrompt": "لديك حساب بالفعل؟",
     "loginAction": "تسجيل الدخول",
-    "comingSoon": "قريبًا",
     "errors": {
       "usernameRequired": "أدخل اسم مستخدم.",
       "usernameLength": "يجب أن يتكون اسم المستخدم من 3 إلى 30 حرفًا.",
@@ -109,6 +107,34 @@
       "inProgress": "جارٍ تسجيل الخروج…",
       "error": "فشل تسجيل الخروج. أعد المحاولة.",
       "confirmation": "تم تسجيل خروجك."
+    }
+  },
+  "login": {
+    "title": "تسجيل الدخول",
+    "username": {
+      "label": "اسم المستخدم"
+    },
+    "password": {
+      "label": "كلمة المرور",
+      "show": "إظهار كلمة المرور",
+      "hide": "إخفاء كلمة المرور"
+    },
+    "submit": "تسجيل الدخول",
+    "submitting": "جارٍ تسجيل الدخول…",
+    "slowServerHint": "قد يكون الخادم بصدد التشغيل، الرجاء الانتظار.",
+    "redirecting": "تم تسجيل الدخول. جارٍ فتح فضائك الخاص…",
+    "createAccountPrompt": "ليس لديك حساب بعد؟",
+    "createAccountAction": "إنشاء حساب",
+    "errors": {
+      "usernameRequired": "أدخل اسم مستخدم.",
+      "passwordRequired": "أدخل كلمة مرور."
+    },
+    "serverErrors": {
+      "invalidCredentials": "اسم المستخدم أو كلمة المرور غير صحيحة.",
+      "rateLimited": "عدد كبير جدًا من المحاولات. يرجى الانتظار قليلاً قبل إعادة المحاولة.",
+      "serviceUnavailable": "الخدمة غير متوفرة مؤقتًا. أعد المحاولة لاحقًا.",
+      "unexpected": "حدث خطأ ما. يرجى إعادة المحاولة.",
+      "unknownResult": "تعذّر تأكيد تسجيل الدخول. أعد المحاولة إذا لزم الأمر."
     }
   }
 }

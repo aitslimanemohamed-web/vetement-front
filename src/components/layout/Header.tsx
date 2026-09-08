@@ -2,7 +2,6 @@ import { cookies } from 'next/headers';
 import { getTranslations } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import { Avatar } from '@/components/ui/Avatar';
-import { DisabledActionButton } from '@/components/ui/DisabledActionButton';
 import { LogoutButton } from '@/features/auth/session/LogoutButton';
 import { SESSION_COOKIE_NAME } from '@/lib/csrf-constants';
 import { getSessionUser } from '@/lib/server/session';
@@ -45,7 +44,9 @@ export async function Header() {
           </div>
         ) : (
           <div className={styles.authButtons}>
-            <DisabledActionButton label={t('login')} comingSoonLabel={t('comingSoon')} variant="secondary" />
+            <Link href="/connexion" className={styles.loginLink}>
+              {t('login')}
+            </Link>
             <Link href="/inscription" className={styles.signupLink}>
               {t('signup')}
             </Link>

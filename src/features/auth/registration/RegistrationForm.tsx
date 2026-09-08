@@ -2,8 +2,7 @@
 
 import { useId, useRef, useState, type FormEvent } from 'react';
 import { useTranslations } from 'next-intl';
-import { DisabledActionButton } from '@/components/ui/DisabledActionButton';
-import { useRouter } from '@/i18n/navigation';
+import { Link, useRouter } from '@/i18n/navigation';
 import { PasswordField } from './PasswordField';
 import { callRegisterApi } from './register-api';
 import { validateRegistrationForm, type RegistrationMessages } from './validation';
@@ -274,7 +273,7 @@ export function RegistrationForm() {
 
       <p className={styles.loginPrompt}>
         <span>{t('loginPrompt')}</span>
-        <DisabledActionButton label={t('loginAction')} comingSoonLabel={t('comingSoon')} variant="secondary" />
+        <Link href="/connexion">{t('loginAction')}</Link>
       </p>
     </form>
   );

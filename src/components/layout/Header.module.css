@@ -48,6 +48,20 @@
   flex-wrap: wrap;
 }
 
+.loginLink {
+  padding: 0.55rem 1.25rem;
+  border-radius: var(--radius-md);
+  border: 1.5px solid var(--color-border);
+  color: var(--color-ink);
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.loginLink:hover {
+  border-color: var(--color-green);
+  color: var(--color-green-strong);
+}
+
 .signupLink {
   padding: 0.55rem 1.25rem;
   border-radius: var(--radius-md);

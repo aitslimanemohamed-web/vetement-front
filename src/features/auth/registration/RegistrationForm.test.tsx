@@ -253,10 +253,9 @@ describe('RegistrationForm', () => {
     fetchSpy.mockRestore();
   });
 
-  it('keeps the "log in" action disabled with a visible "coming soon" caption', () => {
+  it('links "log in" to the real login page (US-011)', () => {
     renderForm();
-    const loginButton = screen.getByRole('button', { name: 'Se connecter' });
-    expect(loginButton).toBeDisabled();
-    expect(screen.getAllByText('Bientôt disponible').length).toBeGreaterThan(0);
+    const loginLink = screen.getByRole('link', { name: 'Se connecter' });
+    expect(loginLink).toHaveAttribute('href', '/connexion');
   });
 });
