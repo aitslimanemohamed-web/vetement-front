@@ -37,8 +37,9 @@ export async function Header() {
         {session.kind === 'ok' ? (
           <div className={styles.userInfo}>
             <Avatar />
-            <Link href="/espace" className={styles.username}>
-              {session.user.username}
+            <span className={styles.username}>{session.user.username}</span>
+            <Link href="/espace" className={styles.mySpaceLink}>
+              {t('mySpace')}
             </Link>
             <LogoutButton />
           </div>

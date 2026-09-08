@@ -9,7 +9,8 @@
     "howItWorks": "How it works",
     "login": "Log in",
     "signup": "Sign up",
-    "comingSoon": "Coming soon"
+    "comingSoon": "Coming soon",
+    "mySpace": "My space"
   },
   "languageSwitcher": {
     "label": "Choose language"
@@ -99,7 +100,9 @@
     "sessionExpired": "Your session has expired.",
     "offline": {
       "checking": "Checking your session…",
-      "message": "We can't check your session right now. Retrying…"
+      "message": "We can't check your session right now.",
+      "retry": "Retry",
+      "retrying": "Retrying…"
     },
     "logout": {
       "button": "Log out",

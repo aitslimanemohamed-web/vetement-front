@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { act, render, screen } from '@testing-library/react';
+import { act, fireEvent, render, screen } from '@testing-library/react';
 import { NextIntlClientProvider } from 'next-intl';
 import messages from '@/messages/fr.json';
 import { SESSION_EXPIRED_STORAGE_KEY } from '@/lib/auth-storage-keys';
@@ -45,9 +45,31 @@ describe('SessionWatcher', () => {
     expect(screen.queryByRole('status')).not.toBeInTheDocument();
   });
 
-  it('shows the offline message immediately when the server-rendered check could not confirm the session', () => {
+  it('shows the offline message and a clickable retry action immediately when the server-rendered check could not confirm the session', () => {
     renderWatcher(true);
-    expect(screen.getByText("Impossible de vérifier votre session pour le moment. Nouvelle tentative en cours…")).toBeInTheDocument();
+    expect(screen.getByText('Impossible de vérifier votre session pour le moment.')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Réessayer' })).toBeInTheDocument();
+  });
+
+  it('retry button: triggers an immediate check, disables itself while in flight, clears offline state on success', async () => {
+    let resolveCheck: (value: { kind: 'ok' }) => void = () => {};
+    callMeApiMock.mockReturnValue(
+      new Promise((resolve) => {
+        resolveCheck = resolve;
+      }),
+    );
+    renderWatcher(true);
+
+    await act(async () => {
+      fireEvent.click(screen.getByRole('button', { name: 'Réessayer' }));
+    });
+    expect(screen.getByRole('button', { name: 'Nouvelle tentative…' })).toBeDisabled();
+
+    await act(async () => {
+      resolveCheck({ kind: 'ok' });
+    });
+
+    expect(screen.queryByText('Impossible de vérifier votre session pour le moment.')).not.toBeInTheDocument();
   });
 
   it('clears the offline message once a later check succeeds', async () => {
@@ -58,9 +80,7 @@ describe('SessionWatcher', () => {
       await vi.advanceTimersByTimeAsync(POLL_INTERVAL_MS);
     });
 
-    expect(
-      screen.queryByText('Impossible de vérifier votre session pour le moment. Nouvelle tentative en cours…'),
-    ).not.toBeInTheDocument();
+    expect(screen.queryByText('Impossible de vérifier votre session pour le moment.')).not.toBeInTheDocument();
   });
 
   it('never redirects while merely offline — only an explicit "unauthenticated" does', async () => {

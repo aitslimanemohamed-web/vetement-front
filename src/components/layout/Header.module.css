@@ -73,6 +73,16 @@
   color: var(--color-ink);
 }
 
+.mySpaceLink {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-green-strong);
+}
+
+.mySpaceLink:hover {
+  text-decoration: underline;
+}
+
 @media (min-width: 700px) {
   .header {
     flex-direction: row;

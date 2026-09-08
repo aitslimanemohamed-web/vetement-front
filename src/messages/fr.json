@@ -9,7 +9,8 @@
     "howItWorks": "Comment ça marche ?",
     "login": "Connexion",
     "signup": "Inscription",
-    "comingSoon": "Bientôt disponible"
+    "comingSoon": "Bientôt disponible",
+    "mySpace": "Mon espace"
   },
   "languageSwitcher": {
     "label": "Choisir la langue"
@@ -99,7 +100,9 @@
     "sessionExpired": "Votre session a expiré.",
     "offline": {
       "checking": "Vérification de votre session…",
-      "message": "Impossible de vérifier votre session pour le moment. Nouvelle tentative en cours…"
+      "message": "Impossible de vérifier votre session pour le moment.",
+      "retry": "Réessayer",
+      "retrying": "Nouvelle tentative…"
     },
     "logout": {
       "button": "Déconnexion",

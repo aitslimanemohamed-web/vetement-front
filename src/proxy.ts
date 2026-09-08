@@ -16,6 +16,11 @@ const intlProxy = createMiddleware(routing);
 // seulement la déconnexion. Volontairement non HttpOnly : c'est le fait
 // qu'un script cross-site ne puisse pas le lire (politique d'origine du
 // navigateur) qui rend ce motif utile, voir src/lib/csrf.ts.
+// Chemin de l'espace connecté, quelle que soit la langue (/fr/espace,
+// /en/espace, /ar/espace) — voir src/i18n/routing.ts pour la liste des
+// langues (codes à 2 lettres).
+const PROTECTED_SPACE_PATTERN = /^\/[a-z]{2}\/espace(\/|$)/;
+
 export function proxy(request: NextRequest) {
   const response = intlProxy(request);
 
@@ -26,6 +31,13 @@ export function proxy(request: NextRequest) {
       sameSite: 'lax',
       path: '/',
     });
+  }
+
+  // Empêche toute mise en cache de la page (y compris le cache "retour" du
+  // navigateur, bfcache) : son contenu dépend d'une session et ne doit
+  // jamais être resservi après une déconnexion (US-010, sections 8 et 10).
+  if (PROTECTED_SPACE_PATTERN.test(request.nextUrl.pathname)) {
+    response.headers.set('Cache-Control', 'no-store');
   }
 
   return response;
