@@ -69,7 +69,7 @@
     "submit": "S'inscrire",
     "submitting": "Création du compte…",
     "slowServerHint": "Le serveur démarre peut-être, merci de patienter.",
-    "successMessage": "Votre compte a été créé. La connexion sera disponible prochainement.",
+    "redirecting": "Votre compte a été créé. Ouverture de votre espace…",
     "loginPrompt": "Déjà un compte ?",
     "loginAction": "Se connecter",
     "comingSoon": "Bientôt disponible",
@@ -90,6 +90,22 @@
       "serviceUnavailable": "Le service est temporairement indisponible. Réessayez plus tard.",
       "unexpected": "Une erreur est survenue. Veuillez réessayer.",
       "unknownResult": "Nous n'avons pas pu confirmer la création du compte. Elle a peut-être été effectuée."
+    }
+  },
+  "espace": {
+    "title": "Mon espace",
+    "greeting": "Bienvenue, {username}",
+    "placeholder": "Votre espace est prêt. Les fonctionnalités arrivent prochainement.",
+    "sessionExpired": "Votre session a expiré.",
+    "offline": {
+      "checking": "Vérification de votre session…",
+      "message": "Impossible de vérifier votre session pour le moment. Nouvelle tentative en cours…"
+    },
+    "logout": {
+      "button": "Déconnexion",
+      "inProgress": "Déconnexion…",
+      "error": "La déconnexion a échoué. Réessayez.",
+      "confirmation": "Vous êtes déconnecté."
     }
   }
 }

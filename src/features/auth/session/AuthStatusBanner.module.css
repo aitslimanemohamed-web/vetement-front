@@ -1,0 +1,8 @@
+.banner {
+  max-width: var(--content-width);
+  margin: 0 auto;
+  padding: 0.75rem 1.5rem 0;
+  color: var(--color-green-strong);
+  font-weight: 600;
+  font-size: 0.9rem;
+}

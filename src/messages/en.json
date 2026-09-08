@@ -69,7 +69,7 @@
     "submit": "Sign up",
     "submitting": "Creating account…",
     "slowServerHint": "The server may be starting up, please wait.",
-    "successMessage": "Your account has been created. Logging in will be available soon.",
+    "redirecting": "Your account has been created. Opening your space…",
     "loginPrompt": "Already have an account?",
     "loginAction": "Log in",
     "comingSoon": "Coming soon",
@@ -90,6 +90,22 @@
       "serviceUnavailable": "The service is temporarily unavailable. Please try again later.",
       "unexpected": "Something went wrong. Please try again.",
       "unknownResult": "We couldn't confirm your account was created. It may have been created anyway."
+    }
+  },
+  "espace": {
+    "title": "My space",
+    "greeting": "Welcome, {username}",
+    "placeholder": "Your space is ready. Features are coming soon.",
+    "sessionExpired": "Your session has expired.",
+    "offline": {
+      "checking": "Checking your session…",
+      "message": "We can't check your session right now. Retrying…"
+    },
+    "logout": {
+      "button": "Log out",
+      "inProgress": "Logging out…",
+      "error": "Logout failed. Please try again.",
+      "confirmation": "You're logged out."
     }
   }
 }

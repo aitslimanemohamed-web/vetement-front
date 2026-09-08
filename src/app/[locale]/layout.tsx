@@ -3,6 +3,7 @@ import { NextIntlClientProvider, hasLocale } from 'next-intl';
 import { getMessages, getTranslations, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { Cairo } from 'next/font/google';
+import { AuthBroadcastListener } from '@/features/auth/session/AuthBroadcastListener';
 import { routing, rtlLocales, type Locale } from '@/i18n/routing';
 import '../globals.css';
 
@@ -61,7 +62,10 @@ export default async function LocaleLayout({
   return (
     <html lang={locale} dir={dir} className={cairo.variable}>
       <body>
-        <NextIntlClientProvider messages={messages}>{children}</NextIntlClientProvider>
+        <NextIntlClientProvider messages={messages}>
+          {children}
+          <AuthBroadcastListener />
+        </NextIntlClientProvider>
       </body>
     </html>
   );

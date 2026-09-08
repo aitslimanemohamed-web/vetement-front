@@ -80,16 +80,6 @@
   color: var(--color-green-strong);
 }
 
-.backHomeAfterSuccess {
-  font-size: 0.9rem;
-  font-weight: 600;
-}
-
-.backHomeAfterSuccess a {
-  color: var(--color-green-strong);
-  text-decoration: underline;
-}
-
 .loginPrompt {
   display: flex;
   align-items: center;

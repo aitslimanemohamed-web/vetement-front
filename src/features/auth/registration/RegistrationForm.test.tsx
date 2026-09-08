@@ -1,15 +1,18 @@
-import { describe, expect, it, vi } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { NextIntlClientProvider } from 'next-intl';
 import messages from '@/messages/fr.json';
 import { RegistrationForm } from './RegistrationForm';
 
-// next-intl's <Link> pulls in next/navigation internals that aren't
-// resolvable outside a real Next.js build — stand in with a plain <a>, as
-// LanguageSwitcher.test.tsx already does for the same reason.
+// next-intl's <Link>/useRouter pull in next/navigation internals that
+// aren't resolvable outside a real Next.js build — stand in with a plain
+// <a> and a spy router, as LanguageSwitcher.test.tsx already does for <Link>.
+const pushSpy = vi.fn();
+const refreshSpy = vi.fn();
 vi.mock('@/i18n/navigation', () => ({
   Link: ({ children, href }: { children: React.ReactNode; href: string }) => <a href={href}>{children}</a>,
+  useRouter: () => ({ push: pushSpy, refresh: refreshSpy }),
 }));
 
 function renderForm() {
@@ -24,6 +27,11 @@ const VALID_USERNAME = 'jean-dupont_92';
 const VALID_PASSWORD = 'une phrase de passe suffisamment longue';
 
 describe('RegistrationForm', () => {
+  beforeEach(() => {
+    pushSpy.mockClear();
+    refreshSpy.mockClear();
+  });
+
   it('shows no error on initial render, even though required fields are empty', () => {
     renderForm();
     expect(screen.queryByText("Saisissez un nom d'utilisateur.")).not.toBeInTheDocument();
@@ -128,7 +136,7 @@ describe('RegistrationForm', () => {
     expect(screen.getByLabelText('Confirmer le mot de passe')).toHaveAttribute('type', 'password');
   });
 
-  it('sends only username and password to the register API, once, and shows the server success message', async () => {
+  it('sends only username and password to the register API, once, and redirects to the connected space', async () => {
     const fetchSpy = vi.spyOn(globalThis, 'fetch').mockResolvedValue(
       new Response(
         JSON.stringify({
@@ -148,11 +156,13 @@ describe('RegistrationForm', () => {
     await user.click(screen.getByRole('button', { name: "S'inscrire" }));
 
     expect(
-      await screen.findByText('Votre compte a été créé. La connexion sera disponible prochainement.'),
+      await screen.findByText('Votre compte a été créé. Ouverture de votre espace…'),
     ).toBeInTheDocument();
+    expect(pushSpy).toHaveBeenCalledWith('/espace');
 
     expect(fetchSpy).toHaveBeenCalledTimes(1);
-    const [, requestInit] = fetchSpy.mock.calls[0]!;
+    const [requestUrl, requestInit] = fetchSpy.mock.calls[0]!;
+    expect(requestUrl).toBe('/api/auth/register');
     expect(JSON.parse(requestInit!.body as string)).toEqual({
       username: VALID_USERNAME,
       password: VALID_PASSWORD,
@@ -165,7 +175,7 @@ describe('RegistrationForm', () => {
     fetchSpy.mockRestore();
   });
 
-  it('never shows success on local validation alone, and disables the submit button while the request is in flight', async () => {
+  it('never redirects on local validation alone, and disables the submit button while the request is in flight', async () => {
     let resolveFetch: (value: Response) => void = () => {};
     const fetchSpy = vi.spyOn(globalThis, 'fetch').mockReturnValue(
       new Promise((resolve) => {
@@ -182,9 +192,7 @@ describe('RegistrationForm', () => {
 
     const submitButton = await screen.findByRole('button', { name: 'Création du compte…' });
     expect(submitButton).toBeDisabled();
-    expect(
-      screen.queryByText('Votre compte a été créé. La connexion sera disponible prochainement.'),
-    ).not.toBeInTheDocument();
+    expect(pushSpy).not.toHaveBeenCalled();
 
     resolveFetch(
       new Response(
@@ -197,8 +205,9 @@ describe('RegistrationForm', () => {
     );
 
     expect(
-      await screen.findByText('Votre compte a été créé. La connexion sera disponible prochainement.'),
+      await screen.findByText('Votre compte a été créé. Ouverture de votre espace…'),
     ).toBeInTheDocument();
+    expect(pushSpy).toHaveBeenCalledWith('/espace');
     fetchSpy.mockRestore();
   });
 
@@ -239,9 +248,8 @@ describe('RegistrationForm', () => {
         "Nous n'avons pas pu confirmer la création du compte. Elle a peut-être été effectuée.",
       ),
     ).toBeInTheDocument();
-    expect(
-      screen.queryByText('Votre compte a été créé. La connexion sera disponible prochainement.'),
-    ).not.toBeInTheDocument();
+    expect(screen.queryByText('Votre compte a été créé. Ouverture de votre espace…')).not.toBeInTheDocument();
+    expect(pushSpy).not.toHaveBeenCalled();
     fetchSpy.mockRestore();
   });
 

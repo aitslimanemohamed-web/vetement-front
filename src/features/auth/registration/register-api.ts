@@ -1,7 +1,13 @@
-// Client de l'API d'inscription (US-009). Aucune valeur n'est jamais
-// journalisée, stockée (URL, cookie, localStorage/sessionStorage) ni envoyée
-// ailleurs qu'à cette route, une seule fois par appel — pas de tentative
-// automatique.
+// Client de l'API d'inscription (US-009, adapté en US-010). Appelle
+// désormais une route de même origine (`/api/auth/register`, servie par
+// Next.js) plutôt que directement l'API NestJS cross-origin : ce relais pose
+// le cookie de session HttpOnly sur le domaine du site — voir
+// src/app/api/auth/register/route.ts et CONTEXTE_PROJET.md. Aucune valeur
+// n'est jamais journalisée, stockée (URL, cookie non-HttpOnly mis à part
+// pour le jeton CSRF, localStorage/sessionStorage) ni envoyée ailleurs qu'à
+// cette route, une seule fois par appel — pas de tentative automatique.
+import { getCsrfToken } from '@/lib/csrf-client';
+
 const REQUEST_TIMEOUT_MS = 90_000;
 
 export interface RegisteredAccount {
@@ -28,18 +34,13 @@ function isRecord(value: unknown): value is Record<string, unknown> {
 }
 
 export async function callRegisterApi(username: string, password: string): Promise<RegisterApiResult> {
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-  if (!apiUrl) {
-    return { kind: 'unknown-result' };
-  }
-
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
 
   try {
-    const response = await fetch(`${apiUrl}/auth/register`, {
+    const response = await fetch('/api/auth/register', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': getCsrfToken() ?? '' },
       body: JSON.stringify({ username, password }),
       signal: controller.signal,
       cache: 'no-store',

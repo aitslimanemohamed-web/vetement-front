@@ -3,7 +3,7 @@
 import { useId, useRef, useState, type FormEvent } from 'react';
 import { useTranslations } from 'next-intl';
 import { DisabledActionButton } from '@/components/ui/DisabledActionButton';
-import { Link } from '@/i18n/navigation';
+import { useRouter } from '@/i18n/navigation';
 import { PasswordField } from './PasswordField';
 import { callRegisterApi } from './register-api';
 import { validateRegistrationForm, type RegistrationMessages } from './validation';
@@ -31,14 +31,17 @@ function translateServerFieldCode(code: string, t: Translator): string {
   return key ? t(`errors.${key}` as Parameters<Translator>[0]) : t('serverErrors.unexpected');
 }
 
-// Formulaire d'inscription (US-009) : validation locale inchangée (US-007),
-// puis un unique appel réel à l'API d'inscription NestJS. Les valeurs ne
+// Formulaire d'inscription (US-009, connecté automatiquement en US-010) :
+// validation locale inchangée (US-007), puis un unique appel réel à l'API
+// d'inscription (relayée par Next.js, voir register-api.ts). Les valeurs ne
 // vivent que dans l'état de ce composant — jamais dans l'URL, un cookie,
-// localStorage/sessionStorage, un journal ou un outil d'analyse. Les deux
-// champs de mot de passe sont effacés après une création confirmée par le
-// serveur (jamais sur la seule base de la validation locale).
+// localStorage/sessionStorage, un journal ou un outil d'analyse. Un succès
+// confirmé par le serveur redirige immédiatement vers l'espace connecté —
+// jamais une étape intermédiaire où l'utilisateur ressaisirait ses
+// identifiants (US-010, section 2).
 export function RegistrationForm() {
   const t = useTranslations('registration');
+  const router = useRouter();
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -51,7 +54,7 @@ export function RegistrationForm() {
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [showSlowHint, setShowSlowHint] = useState(false);
-  const [accountCreated, setAccountCreated] = useState(false);
+  const [redirecting, setRedirecting] = useState(false);
   const [serverError, setServerError] = useState<string | null>(null);
   const [serverFieldErrors, setServerFieldErrors] = useState<{ username?: string; password?: string }>({});
 
@@ -87,7 +90,6 @@ export function RegistrationForm() {
   }
 
   function resetTransientState() {
-    if (accountCreated) setAccountCreated(false);
     if (serverError) setServerError(null);
   }
 
@@ -142,11 +144,16 @@ export function RegistrationForm() {
 
     switch (result.kind) {
       case 'success': {
-        setAccountCreated(true);
         setPassword('');
         setConfirmPassword('');
         setSubmitted(false);
         setTouched((current) => ({ ...current, password: false, confirmPassword: false }));
+        // Le cookie de session a déjà été posé par le relais (voir
+        // register-api.ts) au moment où cette réponse arrive — la
+        // redirection ne fait qu'ouvrir la page déjà accessible.
+        setRedirecting(true);
+        router.push('/espace');
+        router.refresh();
         break;
       }
       case 'field-error': {
@@ -194,8 +201,8 @@ export function RegistrationForm() {
     ? showSlowHint
       ? `${t('submitting')} ${t('slowServerHint')}`
       : t('submitting')
-    : accountCreated
-      ? t('successMessage')
+    : redirecting
+      ? t('redirecting')
       : (serverError ?? '');
 
   return (
@@ -257,19 +264,13 @@ export function RegistrationForm() {
         error={showConfirmError ? errors.confirmPassword : undefined}
       />
 
-      <button type="submit" className={styles.submit} disabled={submitting}>
+      <button type="submit" className={styles.submit} disabled={submitting || redirecting}>
         {submitting ? t('submitting') : t('submit')}
       </button>
 
       <p className={styles.status} role="status" aria-live="polite">
         {statusMessage}
       </p>
-
-      {accountCreated && (
-        <p className={styles.backHomeAfterSuccess}>
-          <Link href="/">{t('backToHome')}</Link>
-        </p>
-      )}
 
       <p className={styles.loginPrompt}>
         <span>{t('loginPrompt')}</span>

@@ -10,8 +10,8 @@ describe('callRegisterApi', () => {
     vi.restoreAllMocks();
   });
 
-  it('maps a 201 with the documented shape to success', async () => {
-    vi.spyOn(globalThis, 'fetch').mockResolvedValue(
+  it('maps a 201 with the documented shape to success, calling the same-origin relay route', async () => {
+    const fetchSpy = vi.spyOn(globalThis, 'fetch').mockResolvedValue(
       jsonResponse({ status: 'ACCOUNT_CREATED', user: { id: '1', username: 'bob', createdAt: '2026-01-01' } }, 201),
     );
 
@@ -21,6 +21,9 @@ describe('callRegisterApi', () => {
       kind: 'success',
       user: { id: '1', username: 'bob', createdAt: '2026-01-01' },
     });
+    // US-010 : appelle désormais la route relais de même origine, jamais
+    // directement l'API NestJS cross-origin.
+    expect(fetchSpy.mock.calls[0]![0]).toBe('/api/auth/register');
   });
 
   it('maps VALIDATION_ERROR with field codes', async () => {
@@ -61,18 +64,5 @@ describe('callRegisterApi', () => {
     const result = await callRegisterApi('bob', 'une phrase de passe suffisamment longue');
 
     expect(result.kind).toBe('unexpected');
-  });
-
-  it('never calls fetch when NEXT_PUBLIC_API_URL is not configured', async () => {
-    const fetchSpy = vi.spyOn(globalThis, 'fetch');
-    const original = process.env.NEXT_PUBLIC_API_URL;
-    delete process.env.NEXT_PUBLIC_API_URL;
-
-    const result = await callRegisterApi('bob', 'une phrase de passe suffisamment longue');
-
-    expect(result).toEqual({ kind: 'unknown-result' });
-    expect(fetchSpy).not.toHaveBeenCalled();
-
-    process.env.NEXT_PUBLIC_API_URL = original;
   });
 });

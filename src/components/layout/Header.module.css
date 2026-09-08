@@ -61,6 +61,18 @@
   background: var(--color-green-strong);
 }
 
+.userInfo {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+}
+
+.username {
+  font-weight: 700;
+  color: var(--color-ink);
+}
+
 @media (min-width: 700px) {
   .header {
     flex-direction: row;

@@ -1,0 +1,17 @@
+.avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--color-green-tint);
+  color: var(--color-green-strong);
+  flex-shrink: 0;
+}
+
+.icon {
+  width: 22px;
+  height: 22px;
+  overflow: visible;
+}

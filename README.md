@@ -54,7 +54,7 @@ git clone https://github.com/aitslimanemohamed-web/vetement-front.git
 
 ```
 npm install
-cp .env.example .env.local   # puis ajuster NEXT_PUBLIC_API_URL si besoin
+cp .env.example .env.local   # puis ajuster NEXT_PUBLIC_API_URL et INTERNAL_API_URL si besoin
 npm run dev                  # démarre le serveur de développement (http://localhost:3000)
 npm run type-check           # vérifie les types TypeScript
 npm run lint                 # vérifie le code
@@ -68,23 +68,34 @@ npm run start                # démarre la version construite
 - `/`, redirigée vers la langue mémorisée ou `/fr` par défaut — page d'accueil publique
   (français `/fr`, anglais `/en`, arabe `/ar`, avec mise en page RTL pour l'arabe).
 - `/<langue>/inscription` — création de compte (nom d'utilisateur, mot de passe, confirmation) :
-  validation locale immédiate, puis un appel réel à `POST /api/auth/register` (vetement-back) qui
-  crée le compte en base (US-009). Aucun mot de passe n'est jamais stocké côté front ni renvoyé
-  par l'API ; aucune session n'est créée.
+  validation locale immédiate, puis un appel relayé (même origine, `/api/auth/register`) qui crée
+  le compte et une session (US-009, US-010). Aucun mot de passe n'est jamais stocké côté front ni
+  renvoyé par l'API. Redirige automatiquement vers `/<langue>/espace` en cas de succès, ou vers
+  `/<langue>/espace` directement si un visiteur déjà connecté l'ouvre.
+- `/<langue>/espace` — espace connecté (US-010) : nom d'utilisateur réel, avatar par défaut,
+  déconnexion. Protégé côté serveur (redirection vers l'accueil sans session valide, sans jamais
+  laisser apparaître de contenu privé). Session opaque stockée dans PostgreSQL (`app.sessions`),
+  cookie `HttpOnly`/`Secure`/`SameSite=Lax`, jamais dans `localStorage`.
 - `/<langue>/diagnostic` — page technique interne de vérification front/back (commit déployé,
   disponibilité de l'API). Non traduite, non destinée aux visiteurs, toujours `noindex`.
+- `/api/auth/{register,me,logout}` — routes relais de même origine vers l'API NestJS
+  (`INTERNAL_API_URL`, variable serveur) : le navigateur ne parle jamais directement à Render pour
+  ces actions (cookie de session posé sur le domaine du site, jamais un cookie tiers — voir
+  CONTEXTE_PROJET.md pour le détail de l'architecture).
 
 ## État actuel
 
 La page d'accueil publique (US-004) présente le projet avec une identité visuelle évoquant
 l'Algérie, une section « Comment ça marche ? », un emplacement d'attente pour les futures
 annonces, et un sélecteur de langue fonctionnel (français, anglais, arabe) avec persistance du
-choix. Le bouton **Inscription** ouvre une vraie page connectée au back-end (US-009) : un compte
-est réellement créé en base. Le bouton **Connexion** reste désactivé (« Bientôt disponible »)
-tant que sa page n'existe pas. Aucune autre fonctionnalité connectée à un serveur (annonces,
-messagerie...) n'existe encore — voir le fichier de référence pour le détail exact de ce qui est
-réalisé, prévu ou bloqué.
+choix. Le bouton **Inscription** ouvre une vraie page connectée au back-end : un compte est
+réellement créé en base et connecte automatiquement l'utilisateur à son espace (US-009, US-010).
+Une fois connecté, l'en-tête affiche le nom du compte, un avatar par défaut et un bouton de
+déconnexion réel à la place des actions Connexion/Inscription. Le bouton **Connexion** (pour un
+compte déjà existant) reste désactivé (« Bientôt disponible ») tant que sa page n'existe pas.
+Aucune autre fonctionnalité connectée à un serveur (annonces, messagerie...) n'existe encore —
+voir le fichier de référence pour le détail exact de ce qui est réalisé, prévu ou bloqué.
 
 Restent à définir : l'organisation entre les cibles web et mobile, le nom de marque définitif
-(« Vetement » est utilisé à titre provisoire), la page de connexion, la récupération de compte,
-et les pages légales/de contact nécessaires au lancement public.
+(« Vetement » est utilisé à titre provisoire), la page de connexion pour un compte existant, la
+récupération de compte, et les pages légales/de contact nécessaires au lancement public.
