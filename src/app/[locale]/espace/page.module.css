@@ -1,28 +1,35 @@
 .main {
-  max-width: 480px;
-  margin: 0 auto;
-  padding: 3rem 1.5rem 4rem;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  /* Réserve l'espace de la navigation basse fixe (BottomNav, téléphone
+     uniquement) pour que son contenu ne soit jamais masqué — hauteur de
+     BottomNav (56px) + marge + sa propre zone de sécurité (US-012, section
+     7). Doit rester synchronisée avec BottomNav.module.css. */
+  padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px));
+}
+
+.comingSoonNotice {
+  max-width: var(--content-width);
+  margin: 1.5rem auto 0;
+  padding: 0 1rem;
+  color: var(--color-ink-soft);
+  font-size: 0.85rem;
   text-align: center;
-  gap: 0.75rem;
 }
 
-@media (max-width: 380px) {
-  .main {
-    padding-inline: 1rem;
-  }
-}
-
-.title {
-  font-size: 1.5rem;
-  font-weight: 800;
-  color: var(--color-ink);
-  overflow-wrap: break-word;
-}
-
-.subtitle {
+.offlineMessage {
+  max-width: 480px;
+  margin: 3rem auto;
+  padding: 0 1.5rem;
+  text-align: center;
   color: var(--color-ink-soft);
   font-size: 0.95rem;
+}
+
+@media (min-width: 700px) {
+  .main {
+    /* BottomNav est masquée à partir de cette largeur (voir
+       BottomNav.module.css) : plus besoin de réserver son espace. */
+    padding-bottom: 3rem;
+  }
 }

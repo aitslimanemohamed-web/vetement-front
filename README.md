@@ -78,8 +78,11 @@ npm run start                # démarre la version construite
   connexion). Un nom inconnu et un mot de passe incorrect donnent exactement le même message,
   sans indiquer lequel des deux est en cause. Redirige vers `/<langue>/espace` en cas de succès ou
   si un visiteur déjà connecté l'ouvre.
-- `/<langue>/espace` — espace connecté (US-010) : nom d'utilisateur réel, avatar par défaut,
-  déconnexion. Protégé côté serveur (redirection vers l'accueil sans session valide, sans jamais
+- `/<langue>/espace` — espace connecté, page « Découvrir » (US-010, US-012) : en-tête avec avatar
+  et nom réels, recherche, localisation, catégories, zone d'annonces (état vide, aucune fausse
+  annonce), navigation basse sur téléphone — toutes ces commandes sont volontairement de vrais
+  boutons désactivés, aucune n'est encore fonctionnelle (aucune API métier, aucune donnée
+  d'annonce). Protégé côté serveur (redirection vers l'accueil sans session valide, sans jamais
   laisser apparaître de contenu privé). Session opaque stockée dans PostgreSQL (`app.sessions`),
   cookie `HttpOnly`/`Secure`/`SameSite=Lax`, jamais dans `localStorage`.
 - `/<langue>/diagnostic` — page technique interne de vérification front/back (commit déployé,
@@ -98,9 +101,11 @@ choix. Le bouton **Inscription** ouvre une vraie page connectée au back-end : u
 réellement créé en base et connecte automatiquement l'utilisateur à son espace (US-009, US-010).
 Une fois connecté, l'en-tête affiche le nom du compte, un avatar par défaut et un bouton de
 déconnexion réel à la place des actions Connexion/Inscription. Le bouton **Connexion** ouvre
-désormais une vraie page (US-011) permettant à un compte déjà existant de se reconnecter.
-Aucune autre fonctionnalité connectée à un serveur (annonces, messagerie...) n'existe encore —
-voir le fichier de référence pour le détail exact de ce qui est réalisé, prévu ou bloqué.
+désormais une vraie page (US-011) permettant à un compte déjà existant de se reconnecter. L'espace
+connecté présente désormais une page « Découvrir » complète (US-012) — recherche, catégories,
+zone d'annonces, navigation — mais aucune de ces commandes n'est encore fonctionnelle, et aucune
+annonce réelle n'existe. Voir le fichier de référence pour le détail exact de ce qui est réalisé,
+prévu ou bloqué.
 
 Restent à définir : l'organisation entre les cibles web et mobile, le nom de marque définitif
 (« Vetement » est utilisé à titre provisoire), la récupération de compte, et les pages

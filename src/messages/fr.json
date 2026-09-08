@@ -92,9 +92,6 @@
     }
   },
   "espace": {
-    "title": "Mon espace",
-    "greeting": "Bienvenue, {username}",
-    "placeholder": "Votre espace est prêt. Les fonctionnalités arrivent prochainement.",
     "sessionExpired": "Votre session a expiré.",
     "offline": {
       "checking": "Vérification de votre session…",
@@ -135,6 +132,41 @@
       "serviceUnavailable": "Le service est temporairement indisponible. Réessayez plus tard.",
       "unexpected": "Une erreur est survenue. Veuillez réessayer.",
       "unknownResult": "Nous n'avons pas pu confirmer la connexion. Réessayez si besoin."
+    }
+  },
+  "discover": {
+    "pageTitle": "Découvrir",
+    "comingSoonNotice": "Recherche, vente, favoris et messages seront disponibles progressivement.",
+    "header": {
+      "favorites": "Favoris",
+      "messages": "Messages",
+      "sell": "Vendre",
+      "profile": "Profil"
+    },
+    "search": {
+      "placeholder": "Rechercher un vêtement…",
+      "location": "Toute l'Algérie",
+      "filters": "Filtres"
+    },
+    "categories": {
+      "all": "Tout",
+      "women": "Femme",
+      "men": "Homme",
+      "kids": "Enfant"
+    },
+    "listings": {
+      "title": "À découvrir",
+      "sort": "Trier",
+      "emptyTitle": "Les premières annonces arrivent bientôt",
+      "emptyMessage": "Vous retrouverez ici les vêtements proposés par la communauté.",
+      "sellCta": "Vendre un vêtement"
+    },
+    "nav": {
+      "discover": "Découvrir",
+      "favorites": "Favoris",
+      "sell": "Vendre",
+      "messages": "Messages",
+      "profile": "Profil"
     }
   }
 }

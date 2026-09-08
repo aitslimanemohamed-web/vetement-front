@@ -92,9 +92,6 @@
     }
   },
   "espace": {
-    "title": "فضائي",
-    "greeting": "مرحبًا، {username}",
-    "placeholder": "فضاؤك جاهز. الميزات قادمة قريبًا.",
     "sessionExpired": "انتهت صلاحية جلستك.",
     "offline": {
       "checking": "جارٍ التحقق من جلستك…",
@@ -135,6 +132,41 @@
       "serviceUnavailable": "الخدمة غير متوفرة مؤقتًا. أعد المحاولة لاحقًا.",
       "unexpected": "حدث خطأ ما. يرجى إعادة المحاولة.",
       "unknownResult": "تعذّر تأكيد تسجيل الدخول. أعد المحاولة إذا لزم الأمر."
+    }
+  },
+  "discover": {
+    "pageTitle": "استكشف",
+    "comingSoonNotice": "البحث والبيع والمفضلة والرسائل ستكون متاحة تدريجيًا.",
+    "header": {
+      "favorites": "المفضلة",
+      "messages": "الرسائل",
+      "sell": "بيع",
+      "profile": "الملف الشخصي"
+    },
+    "search": {
+      "placeholder": "ابحث عن ملابس…",
+      "location": "كل الجزائر",
+      "filters": "الفلاتر"
+    },
+    "categories": {
+      "all": "الكل",
+      "women": "نساء",
+      "men": "رجال",
+      "kids": "أطفال"
+    },
+    "listings": {
+      "title": "استكشف",
+      "sort": "ترتيب",
+      "emptyTitle": "الإعلانات الأولى قادمة قريبًا",
+      "emptyMessage": "ستجد هنا الملابس التي يعرضها المجتمع.",
+      "sellCta": "بيع قطعة ملابس"
+    },
+    "nav": {
+      "discover": "استكشف",
+      "favorites": "المفضلة",
+      "sell": "بيع",
+      "messages": "الرسائل",
+      "profile": "الملف الشخصي"
     }
   }
 }

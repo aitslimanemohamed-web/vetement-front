@@ -1,0 +1,56 @@
+.nav {
+  position: fixed;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: space-around;
+  align-items: stretch;
+  background: var(--color-bg-elevated);
+  border-top: 1px solid var(--color-border);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.2rem;
+  flex: 1 1 0;
+  min-height: 56px;
+  padding: 0.4rem;
+  border: none;
+  background: transparent;
+  color: var(--color-ink-soft);
+  cursor: not-allowed;
+}
+
+/* "Découvrir" (page courante) : seul élément non désactivé de cette barre —
+   repère visuel uniquement, pas de navigation (déjà sur cette page). */
+.item[aria-current='page'] {
+  color: var(--color-green-strong);
+  cursor: default;
+}
+
+.item svg {
+  width: 22px;
+  height: 22px;
+}
+
+.label {
+  font-size: 0.68rem;
+  font-weight: 600;
+}
+
+/* "Vendre" mis en avant (US-012, section 7) — même teinte que dans
+   DiscoverHeader, sans opacité réduite (règle COR-005). */
+.sellItem {
+  color: var(--color-green-strong);
+}
+
+@media (min-width: 700px) {
+  .nav {
+    display: none;
+  }
+}

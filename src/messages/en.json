@@ -92,9 +92,6 @@
     }
   },
   "espace": {
-    "title": "My space",
-    "greeting": "Welcome, {username}",
-    "placeholder": "Your space is ready. Features are coming soon.",
     "sessionExpired": "Your session has expired.",
     "offline": {
       "checking": "Checking your session…",
@@ -135,6 +132,41 @@
       "serviceUnavailable": "The service is temporarily unavailable. Please try again later.",
       "unexpected": "Something went wrong. Please try again.",
       "unknownResult": "We couldn't confirm the login. Please try again if needed."
+    }
+  },
+  "discover": {
+    "pageTitle": "Discover",
+    "comingSoonNotice": "Search, selling, favorites and messages will be available progressively.",
+    "header": {
+      "favorites": "Favorites",
+      "messages": "Messages",
+      "sell": "Sell",
+      "profile": "Profile"
+    },
+    "search": {
+      "placeholder": "Search for clothes…",
+      "location": "All of Algeria",
+      "filters": "Filters"
+    },
+    "categories": {
+      "all": "All",
+      "women": "Women",
+      "men": "Men",
+      "kids": "Kids"
+    },
+    "listings": {
+      "title": "To discover",
+      "sort": "Sort",
+      "emptyTitle": "The first listings are coming soon",
+      "emptyMessage": "You'll find clothes offered by the community here.",
+      "sellCta": "Sell a piece of clothing"
+    },
+    "nav": {
+      "discover": "Discover",
+      "favorites": "Favorites",
+      "sell": "Sell",
+      "messages": "Messages",
+      "profile": "Profile"
     }
   }
 }

@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { NextIntlClientProvider, hasLocale } from 'next-intl';
 import { getMessages, getTranslations, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
@@ -19,6 +19,16 @@ const cairo = Cairo({
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
+
+// "cover" (plutôt que la valeur par défaut) : nécessaire pour que
+// `env(safe-area-inset-bottom)` résolve à une vraie valeur sur les
+// téléphones à zone d'encoche — utilisé par la navigation basse fixe de la
+// page Découvrir (US-012), pour ne jamais empiéter sur cette zone.
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  viewportFit: 'cover',
+};
 
 export async function generateMetadata({
   params,
